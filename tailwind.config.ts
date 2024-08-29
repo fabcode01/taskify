@@ -13,8 +13,22 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+
+      colors:{
+        azul: {
+          escuro: '#021E2B',
+          medio: '#19485F',
+          clarinho: '#709CB1'
+        },
+  
+      }
+
     },
+    
+    
   },
-  plugins: [],
+  plugins: [
+    require('daisyui'),
+  ],
 };
 export default config;
