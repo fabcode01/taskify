@@ -1,6 +1,6 @@
-import { arrowDown } from "../icons";
+import { arrowDown } from "../../icons";
 
-export default function Main(){
+export default function Home(){
     return (
         <main className="flex items-center justify-between mt-14 p-5">
             <div>

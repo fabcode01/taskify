@@ -1,7 +1,7 @@
 import {userIcon, logoTaskify} from '../icons/index'
 
 
-export default function Nav(){
+export default function Top(){
     return (
         <div className='flex justify-between items-center p-5'>
 

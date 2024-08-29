@@ -16,6 +16,7 @@ const config: Config = {
 
       colors:{
         azul: {
+          claro: '#E3F5FD',
           escuro: '#021E2B',
           medio: '#19485F',
           clarinho: '#709CB1'
