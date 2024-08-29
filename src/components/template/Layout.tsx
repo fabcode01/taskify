@@ -9,7 +9,7 @@ import Pending from "./Pages/Pending";
 import Settings from "./Pages/Settings";
 
 export default function Layout(){
-    const[currentPage, setCurrentPage] = useState<'home' | 'pending' | 'updates' | 'settings'>('home')
+    const[currentPage, setCurrentPage] = useState<Pages>('home')
 
     function changePage(page: Pages){
         setCurrentPage(page)
