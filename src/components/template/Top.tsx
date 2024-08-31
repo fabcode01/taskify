@@ -1,11 +1,14 @@
 import {userIcon, logoTaskify} from '../icons/index'
 
+interface TopProps{
+    showMenuAuth: () => void
+}
 
-export default function Top(){
+export default function Top(props: TopProps){
     return (
         <div className='flex justify-between items-center p-5'>
 
-            <div className='flex items-center gap-1 cursor-pointer'>
+            <div className='flex items-center gap-1'>
 
                 <span>{logoTaskify(55)}</span>
 
@@ -16,9 +19,9 @@ export default function Top(){
 
                 <div className="avatar placeholder">
 
-                    <div className="bg-neutral text-neutral-content w-12 rounded-full">
+                    <div onClick={props.showMenuAuth} className="cursor-pointer bg-neutral text-neutral-content w-12 rounded-full active:scale-105">
 
-                        <span className="text-xl">F</span>
+                       <span>{userIcon}</span>
                         
                     </div>
                 </div>

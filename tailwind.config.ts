@@ -21,6 +21,14 @@ const config: Config = {
           medio: '#19485F',
           clarinho: '#709CB1'
         },
+        branco: {
+          claro: '#F8F8F8',
+          
+        },
+        over: {
+          claro: '#0000007c',
+          
+        },
   
       }
 

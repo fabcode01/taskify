@@ -20,7 +20,7 @@ export default function Nav(props: NavProps){
     
 
     return (
-        <nav className="flex  absolute w-full h-24  bottom-0 bg-azul-medio ">
+        <nav className="flex fixed w-full h-24  bottom-0 bg-azul-medio ">
 
             <ul className="flex w-full justify-evenly items-center gap-1">
                 

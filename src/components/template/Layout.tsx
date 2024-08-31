@@ -7,9 +7,17 @@ import Home from "./Pages/Home";
 import Updates from "./Pages/Updates";
 import Pending from "./Pages/Pending";
 import Settings from "./Pages/Settings";
+import { MenuAuth } from "../MenuAuth";
 
-export default function Layout(){
+
+interface LayoutProps{
+    children?: any
+}
+
+export default function Layout(props: LayoutProps){
     const[currentPage, setCurrentPage] = useState<Pages>('home')
+
+    const[showMenuAuth, setShowMenuAuth] = useState<boolean>(false)
 
     function changePage(page: Pages){
         setCurrentPage(page)
@@ -27,10 +35,20 @@ export default function Layout(){
         }
     }
 
-    return (
-        <div className="bg-[#F8F8F8] h-screen">
+    function MenuAuthShow(){
+        setShowMenuAuth(true)
+        
+    }
 
-            <Top/>
+    function MenuAuthHidden(){
+            setShowMenuAuth(false)
+
+    }
+
+    return (
+        <div className="bg-branco-claro h-screen">
+            <MenuAuth showMenuAuth={showMenuAuth} hiddenMenuAuth={MenuAuthHidden}/>
+            <Top showMenuAuth={MenuAuthShow}/>
             {renderizarPage()}
 
             <Nav iconSize={9} currentPage={currentPage} changePage={changePage}/>
