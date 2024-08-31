@@ -51,7 +51,7 @@ export default function Layout(props: LayoutProps){
             <Top showMenuAuth={MenuAuthShow}/>
             {renderizarPage()}
 
-            <Nav iconSize={9} currentPage={currentPage} changePage={changePage}/>
+            <Nav iconSize={8} currentPage={currentPage} changePage={changePage}/>
         </div>
     )
 }
