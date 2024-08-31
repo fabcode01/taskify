@@ -32,14 +32,14 @@ export function Form(props: FormProps){
 
             <label className="flex items-center border-2 w-2/3 border-black mt-5 bg-white rounded-lg p-3 ">
 
-                    <input type="text" placeholder="Your Email" className="focus:outline-none focus:border-none" />
+                    <input type="text" placeholder="Your Email" className="focus:outline-none focus:border-none bg-transparent" />
 
                     
             </label>
 
                <label className="flex justify-between items-center border-2 w-2/3 border-black mt-5 bg-white rounded-lg p-3">
 
-                    <input type={showPassword ? 'text' : 'password'} placeholder="Password" className="focus:outline-none focus:border-none w-1/2" />
+                    <input type={showPassword ? 'text' : 'password'} placeholder="Password" className="focus:outline-none focus:border-none w-1/2 bg-transparent" />
 
                     <span onClick={switchPassword} className="cursor-pointer">{showPassword ?  disableEyeIcon : eyeIcon}</span>
                </label>
