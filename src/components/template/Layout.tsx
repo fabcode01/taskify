@@ -7,7 +7,7 @@ import Home from "./Pages/Home";
 import Updates from "./Pages/Updates";
 import Pending from "./Pages/Pending";
 import Settings from "./Pages/Settings";
-import { MenuAuth } from "../MenuAuth";
+import { MenuAuth } from "./MenuAuth";
 
 
 interface LayoutProps{
@@ -46,7 +46,7 @@ export default function Layout(props: LayoutProps){
     }
 
     return (
-        <div className="bg-branco-claro h-screen">
+        <div className="bg-branco-claro h-screen text-black">
             <MenuAuth showMenuAuth={showMenuAuth} hiddenMenuAuth={MenuAuthHidden}/>
             <Top showMenuAuth={MenuAuthShow}/>
             {renderizarPage()}
