@@ -7,7 +7,7 @@ import Home from "./Pages/Home";
 import Updates from "./Pages/Updates";
 import Pending from "./Pages/Pending";
 import Settings from "./Pages/Settings";
-import { MenuAuth } from "./MenuAuth";
+import { MenuAuth } from "../MenuAuth";
 
 
 interface LayoutProps{
