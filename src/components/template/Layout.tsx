@@ -18,8 +18,7 @@ interface LayoutProps{
 export default function Layout(props: LayoutProps){
     const[currentPage, setCurrentPage] = useState<Pages>('home')
 
-    const[showMenuAuth, setShowMenuAuth] = useState<boolean>(false)
-
+    
     function changePage(page: Pages){
         setCurrentPage(page)
     }
@@ -35,6 +34,9 @@ export default function Layout(props: LayoutProps){
             return <Settings/>
         }
     }
+    
+
+    const[showMenuAuth, setShowMenuAuth] = useState<boolean>(false)
 
     function MenuAuthShow(){
         setShowMenuAuth(true)

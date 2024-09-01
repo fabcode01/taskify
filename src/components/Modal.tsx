@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from "react"
+import { Form } from "./FormAuth"
 
 
 
@@ -9,7 +10,7 @@ interface ModalProps{
     hiddenMenu?: ()=>void
     children?: any
     position?: 'fixed bottom-0' | 'fixed top-0'
-    rounded?: string
+    className?: string
 }
 
 export function Modal(props: ModalProps){
@@ -23,9 +24,9 @@ export function Modal(props: ModalProps){
             <div onClick={props.hiddenMenu} className={`${props.modalActive ? '' : 'hidden'} z-20 fixed  h-screen w-full bg-over-claro`}>
             </div>
 
-                <div className={`z-30 absolute h-[390px] w-full bg-branco-claro ${props.rounded}[43px] shadow-lg p-5 ${props.position}`}>
+                <div className={`z-30 absolute h-[390px] w-full bg-branco-claro ${props. className} shadow-lg p-5 ${props.position}`}>
 
-                    {props.children}
+                   {props.children}
                    
                 </div>
             
