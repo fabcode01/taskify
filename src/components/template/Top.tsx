@@ -1,7 +1,7 @@
 import {userIcon, logoTaskify} from '../icons/index'
 
 interface TopProps{
-    showMenuAuth: () => void
+    showMenuAuth?: () => void
 }
 
 export default function Top(props: TopProps){

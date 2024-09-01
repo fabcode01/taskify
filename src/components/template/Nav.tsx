@@ -9,6 +9,7 @@ interface NavProps{
     iconSize: number
     currentPage: Pages
     changePage: (page: Pages) => void
+    triggerNewTask?: ()=>void
 }
 
 
@@ -20,7 +21,7 @@ export default function Nav(props: NavProps){
     
 
     return (
-        <nav className="flex fixed w-full h-24  bottom-0 bg-azul-medio ">
+        <nav className="flex fixed w-full h-24  bottom-0 bg-azul-medio">
 
             <ul className="flex w-full justify-evenly items-center gap-1">
                 
@@ -34,7 +35,7 @@ export default function Nav(props: NavProps){
                     <p>Pending</p>
                 </div>
 
-                <div className={`
+                <div onClick={props.triggerNewTask} className={`
                 flex justify-center items-center w-[5rem] h-[5rem] cursor-pointer relative bottom-6 bg-azul-escuro rounded-[20px] shadow-2xl p-4 text-azul-clarinho active:bottom-7 transition-all `
                 }>
 
