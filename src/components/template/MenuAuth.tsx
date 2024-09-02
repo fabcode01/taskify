@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from "react"
-import  {Form}  from "../../components/FormAuth"
+import  {Form}  from "../FormAuth"
 import { Modal } from "../Modal"
 
 interface MenuLoginProps{

@@ -9,7 +9,7 @@ interface NavProps{
     iconSize: number
     currentPage: Pages
     changePage: (page: Pages) => void
-    triggerNewTask?: ()=>void
+    MenuTaskShow?: () => void
 }
 
 
@@ -35,7 +35,7 @@ export default function Nav(props: NavProps){
                     <p>Pending</p>
                 </div>
 
-                <div onClick={props.triggerNewTask} className={`
+                <div onClick={props.MenuTaskShow} className={`
                 flex justify-center items-center w-[5rem] h-[5rem] cursor-pointer relative bottom-6 bg-azul-escuro rounded-[20px] shadow-2xl p-4 text-azul-clarinho active:bottom-7 transition-all `
                 }>
 

@@ -7,8 +7,10 @@ import Home from "./Pages/Home";
 import Updates from "./Pages/Updates";
 import Pending from "./Pages/Pending";
 import Settings from "./Pages/Settings";
+import  {MenuAuth}  from "./MenuAuth";
+import  {MenuTask}  from "./MenuTask";
 
-import { MenuAuth } from "./MenuAuth";
+
 
 
 interface LayoutProps{
@@ -17,6 +19,8 @@ interface LayoutProps{
 
 export default function Layout(props: LayoutProps){
     const[currentPage, setCurrentPage] = useState<Pages>('home')
+
+  
 
     
     function changePage(page: Pages){
@@ -34,28 +38,41 @@ export default function Layout(props: LayoutProps){
             return <Settings/>
         }
     }
-    
 
+    // controle modal auth
     const[showMenuAuth, setShowMenuAuth] = useState<boolean>(false)
 
     function MenuAuthShow(){
-        setShowMenuAuth(true)
-        
+        setShowMenuAuth(showMenuAuth ? false : true)
     }
 
-    function MenuAuthHidden(){
-            setShowMenuAuth(false)
+    
 
+    //controle modal nova task
+    const[showMenuTask, setShowMenuTask] = useState<boolean>(false)
+
+ 
+
+    function MenuTaskHidden(){
+        setShowMenuTask(showMenuTask === false ? true : false)
     }
+
 
     return (
         <div className="bg-branco-claro h-screen text-black">
-            <MenuAuth showMenuAuth={showMenuAuth} hiddenMenuAuth={MenuAuthHidden}/>
+
+            <MenuTask
+             showMenuTask={showMenuTask} 
+             hiddenMenuTask={MenuTaskHidden}/>
+
+            <MenuAuth showMenuAuth={showMenuAuth} hiddenMenuAuth={MenuAuthShow}/>
             
             <Top showMenuAuth={MenuAuthShow}/>
             {renderizarPage()}
 
-            <Nav iconSize={8} currentPage={currentPage} changePage={changePage}/>
+            <Nav iconSize={8} currentPage={currentPage} changePage={changePage} MenuTaskShow={MenuTaskHidden}/>
+
+            
         </div>
     )
 }
