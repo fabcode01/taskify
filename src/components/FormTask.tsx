@@ -5,6 +5,8 @@ import Button from "./Button"
 import { airplaneIcon, arrowDown } from "./icons"
 import Input from "./Input"
 import Error from "./Error"
+import useTasks from "@/hooks/useTask"
+import Task from "@/core/Task"
 
 
 
@@ -14,9 +16,12 @@ interface FormTask{
 
 export function FormTask(props: FormTask){
     const[description, setDescription] = useState('')
+    const[id, setId] = useState(1)
     const[date, setDate] = useState('')
     const[type, setType] = useState('')
     const[error, setError] = useState('')
+
+    const { setLocalTask } = useTasks()
 
     function newTask(){
         if(!type || !date ||  !description){
@@ -25,7 +30,11 @@ export function FormTask(props: FormTask){
                 setError('')
             },4000)
         }else{
-            console.log(`${type} / ${date} / ${description}`);
+
+            const task = new Task(id, type, description, date)
+
+            setLocalTask(task)
+           
 
         }
     }
@@ -48,7 +57,7 @@ export function FormTask(props: FormTask){
             </select>
                 <Input required inputType="text" placeholder="Description" onChange={setDescription}/>
 
-                <Input inputType="date" onChange={setDate} value="dd/mm/aaaa"/>
+                <Input inputType="date" onChange={setDate}/>
 
                 <div className="flex">
                     
