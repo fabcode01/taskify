@@ -1,9 +1,11 @@
 'use client'
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Button from "./Button"
 import { airplaneIcon, arrowDown } from "./icons"
 import Input from "./Input"
+import Error from "./Error"
+
 
 
 interface FormTask{
@@ -14,11 +16,23 @@ export function FormTask(props: FormTask){
     const[description, setDescription] = useState('')
     const[date, setDate] = useState('')
     const[type, setType] = useState('')
+    const[error, setError] = useState('')
 
     function newTask(){
-        console.log(`${type} / ${date} / ${description}`);
-        
+        if(!type || !date ||  !description){
+            setError('Some fields are missing.')
+            setTimeout(()=>{
+                setError('')
+            },4000)
+        }else{
+            console.log(`${type} / ${date} / ${description}`);
+
+        }
     }
+
+    useEffect(()=>{
+        setError('')
+    },[description, date, type])
 
     return (
         <div>
@@ -32,15 +46,18 @@ export function FormTask(props: FormTask){
                     <option>Hobbies</option>
                     <option>Health</option>
             </select>
-                <Input inputType="text" placeholder="Description" onChange={setDescription}/>
-                <Input inputType="date" onChange={setDate}/>
+                <Input required inputType="text" placeholder="Description" onChange={setDescription}/>
+
+                <Input inputType="date" onChange={setDate} value="dd/mm/aaaa"/>
 
                 <div className="flex">
                     
                     <Button submit={newTask} width="w-40" icon={airplaneIcon} type="bg-azul-escuro text-azul-clarinho hover:bg-blue-950"/>
                 </div>
-                
 
+                <Error message={error}/>
+                
+                
               
                 
             </div>

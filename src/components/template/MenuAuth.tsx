@@ -11,7 +11,6 @@ interface MenuLoginProps{
 
 export function MenuAuth(props: MenuLoginProps){
     const[AuthMode, setAuthMode] = useState<'login' | 'register'>('login')
-    const[error, setError] = useState('')
 
     function switchAuthMode(){
         if(AuthMode === 'login'){
