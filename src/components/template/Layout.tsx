@@ -19,15 +19,19 @@ interface LayoutProps{
 }
 
 export default function Layout(props: LayoutProps){
+
     const[currentPage, setCurrentPage] = useState<Pages>('home')
+ 
   
     function changePage(page: Pages){
         setCurrentPage(page)
     }
 
     function renderizarPage(){
+       
         if(currentPage === 'home'){
             return <Home/>
+            
         }else if(currentPage === 'updates'){
             return <Updates/>
         }else if(currentPage === 'pending'){
@@ -35,6 +39,7 @@ export default function Layout(props: LayoutProps){
         }else{
             return <Settings/>
         }
+        
     }
 
     // controle modal auth

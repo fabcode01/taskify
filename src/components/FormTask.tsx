@@ -36,6 +36,7 @@ export function FormTask(props: FormTask){
             const task = new Task(id, type, description, date)
 
             setLocalTask(task)
+            window.location.reload()
            
 
         }
