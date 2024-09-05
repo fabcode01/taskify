@@ -1,5 +1,6 @@
+
+
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 
 
@@ -15,11 +16,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-br">
-      <head>
-        <link rel="shortcut icon" href="/favicon.png" type="image/x-icon" />
-      </head>
-      <body>{children}</body>
-    </html>
+
+      <html lang="pt-br">
+        <head>
+          <link rel="shortcut icon" href="/favicon.png" type="image/x-icon" />
+        </head>
+        <body>{children}</body>
+      </html>
+ 
   );
 }

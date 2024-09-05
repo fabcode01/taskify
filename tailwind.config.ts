@@ -23,6 +23,7 @@ const config: Config = {
         },
         branco: {
           claro: '#F8F8F8',
+          cinzinha: '#EAEAEA',
           
         },
         over: {

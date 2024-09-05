@@ -10,6 +10,7 @@ import Task from "@/core/Task"
 
 
 
+
 interface FormTask{
     title?: string
 }
@@ -24,6 +25,7 @@ export function FormTask(props: FormTask){
     const { setLocalTask } = useTasks()
 
     function newTask(){
+
         if(!type || !date ||  !description){
             setError('Some fields are missing.')
             setTimeout(()=>{
@@ -52,7 +54,7 @@ export function FormTask(props: FormTask){
                     <option disabled selected>Task Types</option>
                     <option>Finance</option>
                     <option>Personal</option>
-                    <option>Hobbies</option>
+                    <option>Education</option>
                     <option>Health</option>
             </select>
                 <Input required inputType="text" placeholder="Description" onChange={setDescription}/>

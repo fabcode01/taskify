@@ -10,6 +10,7 @@ interface ButtonProps{
     width?: string
     className?: string
     submit: ()=> void
+    
 }
 
 export default function Button(props: ButtonProps){

@@ -13,16 +13,14 @@ import  {MenuTask}  from "./MenuTask";
 
 
 
+
 interface LayoutProps{
     children?: any
 }
 
 export default function Layout(props: LayoutProps){
     const[currentPage, setCurrentPage] = useState<Pages>('home')
-
   
-
-    
     function changePage(page: Pages){
         setCurrentPage(page)
     }
@@ -59,20 +57,19 @@ export default function Layout(props: LayoutProps){
 
 
     return (
+       
         <div className="bg-branco-claro h-screen text-black">
-
-            <MenuTask
-             showMenuTask={showMenuTask} 
-             hiddenMenuTask={MenuTaskHidden}/>
-
-            <MenuAuth showMenuAuth={showMenuAuth} hiddenMenuAuth={MenuAuthShow}/>
+                <MenuTask
+                 showMenuTask={showMenuTask}
+                 hiddenMenuTask={MenuTaskHidden}/>
+                <MenuAuth showMenuAuth={showMenuAuth} hiddenMenuAuth={MenuAuthShow}/>
             
-            <Top showMenuAuth={MenuAuthShow}/>
-            {renderizarPage()}
-
-            <Nav iconSize={8} currentPage={currentPage} changePage={changePage} MenuTaskShow={MenuTaskHidden}/>
-
+                <Top showMenuAuth={MenuAuthShow}/>
+                    {renderizarPage()}
+            
+                <Nav  iconSize={8} currentPage={currentPage} changePage={changePage} MenuTaskShow={MenuTaskHidden}/>
             
         </div>
+      
     )
 }

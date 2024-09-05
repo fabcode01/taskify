@@ -1,8 +1,8 @@
-import Task from "@/core/Task";
+
 import { useEffect, useState } from "react";
 
 export default function useTasks(){
-    const[tasks, setTasks] = useState<Task[]>([])
+    const[tasks, setTasks] = useState<any>([])
 
     useEffect(()=>{
         const StoredTasks = localStorage.getItem('tasks')
@@ -24,6 +24,9 @@ export default function useTasks(){
 
       
     }
+
+
+    
 
 
     return {
