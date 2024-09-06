@@ -12,3 +12,31 @@
     position: fixed;
     bottom: 0;
 }
+
+.anime{
+    transition: all 0.3s;
+}
+
+/* .taskContainer{
+    height: 600px;
+
+}
+
+
+@media screen and (min-height: 1000px) {
+    .taskContainer{
+        height: 900px;
+    }
+}
+
+@media screen and (max-height: 800px) {
+    .taskContainer{
+        height: 95%;
+    }
+}
+
+@media screen and (max-height: 710px) {
+    .taskContainer{
+        height: 75%;
+    }
+} */

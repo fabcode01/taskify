@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { addIcon, bellIcon, clockIcon, homeIcon, settingsIcon } from "../icons";
 
 export type Pages = 'home' | 'pending' | 'updates' | 'settings'
@@ -17,11 +17,36 @@ interface NavProps{
 export default function Nav(props: NavProps){
     const[iconSize, setIconSize] = useState(props.iconSize)
 
+    const[showNav, setShowNav] = useState('bottom-0')
+
     const items = 'flex flex-col items-center text-xs'
+
+    
+    useEffect(()=>{
+        window.addEventListener('scroll',function() {
+            console.log(window.scrollY);
+    
+            let value = 0
+    
+            if(window.scrollY >= value){
+                console.log('cheg');
+                value = 48
+                setShowNav('translate-y-80')
+            }
+    
+            if(window.scrollY < value){
+                
+                setShowNav('translate-y-0')
+            }
+            
+        });
+
+    
+    },[])
     
 
     return (
-        <nav className="flex fixed w-full h-24  bottom-0 bg-azul-medio">
+        <nav className={`anime flex fixed w-full h-24 bottom-0 ${showNav} bg-azul-medio`}>
 
             <ul className="flex w-full justify-evenly items-center gap-1">
                 
