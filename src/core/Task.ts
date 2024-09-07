@@ -5,7 +5,7 @@ export default class Task {
     #date: number | string
     #completed: boolean
 
-    constructor(id: string | number, type: string, description: string, date: string | number, completed: boolean){
+    constructor(id: string | number, type: string, description: string, date: string | number, completed: boolean = false){
         this.#id = id
         this.#type = type
         this.#description = description
@@ -39,7 +39,10 @@ export default class Task {
             id: this.#id,
             type: this.#type,
             description: this.#description,
-            date: this.#date
+            date: this.#date,
+            completed: this.#completed
         }
     }
+
+
 }

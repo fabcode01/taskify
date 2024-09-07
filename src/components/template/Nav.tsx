@@ -23,24 +23,27 @@ export default function Nav(props: NavProps){
 
     
     useEffect(()=>{
-        window.addEventListener('scroll',function() {
-            console.log(window.scrollY);
-    
-            let value = 0
-    
-            if(window.scrollY >= value){
-                console.log('cheg');
-                value = 48
-                setShowNav('translate-y-80')
-            }
-    
-            if(window.scrollY < value){
-                
-                setShowNav('translate-y-0')
-            }
-            
-        });
+            let lastScrollY = window.scrollY
 
+            const handleScroll = ()=>{
+                const currentScrollY = window.scrollY
+
+                if(currentScrollY > lastScrollY){
+                    setShowNav('translate-y-80');
+                } else{
+                    setShowNav('translate-y-0');
+                }
+
+                lastScrollY = currentScrollY
+
+            }
+
+            window.addEventListener('scroll', handleScroll)
+            
+         
+            return ()=>{
+                window.removeEventListener('scroll', handleScroll)
+            }
     
     },[])
     

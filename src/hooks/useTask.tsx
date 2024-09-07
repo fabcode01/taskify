@@ -25,12 +25,36 @@ export default function useTasks(){
       
     }
 
+    function CheckOrUncheck(id: number){
+        
+       const updateTasks = [...tasks]
+
+       const taskIndex = updateTasks.findIndex((task)=> task.id === id)
+
+
+       if(taskIndex !== -1){
+        updateTasks[taskIndex].completed = !updateTasks[taskIndex].completed
+
+        setTasks(updateTasks)
+        localStorage.setItem('tasks', JSON.stringify(updateTasks))
+
+
+       }
+
+
+
+
+        
+
+    }
+
 
     
 
 
     return {
         tasks,
-        setLocalTask
+        setLocalTask,
+        CheckOrUncheck
     }
 }

@@ -1,6 +1,7 @@
 import useTasks from "@/hooks/useTask"
 import { checkIcon, educationIcon, elipsisVerticalIcon, financeIcon, healthIcon, personalIcon, xIcon } from "../icons"
 
+
 interface TasksProps{
     
 }
@@ -10,7 +11,7 @@ export function Tasks(props: TasksProps){
 
    
 
-    const{tasks} = useTasks()
+    const{tasks, CheckOrUncheck} = useTasks()
 
  
     
@@ -30,7 +31,11 @@ export function Tasks(props: TasksProps){
         }
     }
 
+  
+
     function renderTasks(){
+        
+        
 
         if(tasks.length == 0){
             return <div className="flex justify-center items-center">
@@ -40,20 +45,33 @@ export function Tasks(props: TasksProps){
             </div>
         }else{
             return tasks.map((task: any, index: number) => (
-                <div key={index} className={
-                    "flex justify-between bg-branco-cinzinha p-6 rounded-md"
+               
+                
+                <div key={task.id} className={
+                    `anime flex items-center justify-between ${task.completed === false ? 'bg-branco-cinzinha' : 'bg-green-200'} p-6 rounded-md`
                     
                     }>
                     <span className="text-azul-clarinho">{typeSelect(task.type)}</span>
                     <span>{task.description}</span>
-                    <div className="flex">
-                        {task.completed ? (
+                    <div className="flex items-center">
+                        {task.completed === true ? (
 
-                            <span className="text-red-600 cursor-pointer">{xIcon}</span>
+                            <span onClick={()=>CheckOrUncheck(task.id)} className="text-red-600 cursor-pointer active:scale-110">{xIcon}</span>
                         ): (
-                            <span className="text-green-600 cursor-pointer">{checkIcon}</span>
+                            <span onClick={()=>CheckOrUncheck(task.id)}  className="text-green-600 cursor-pointer active:scale-110">{checkIcon}</span>
                         )}
-                        <span className="cursor-pointer">{elipsisVerticalIcon}</span>
+
+                        <div className=" dropdown cursor-pointer">
+                            <div tabIndex={0} role="button" className="m-1 bg-transparent border-none text-black active:scale-110">
+                                {elipsisVerticalIcon}
+                            </div>
+                            <ul className="relative right-5 menu dropdown-content bg-branco-claro rounded-box z-[1] p-2">
+                                <li><a>Edit</a></li>
+                                <li><a>Delete</a></li>
+                            </ul>
+                        
+                            
+                        </div>
                     </div>
                 </div>
             ));
@@ -63,7 +81,7 @@ export function Tasks(props: TasksProps){
     }
 
     return (
-        <div className={`taskContainer flex flex-col gap-5 overflow-auto pb-16`}>
+        <div className={`taskContainer flex flex-col gap-5`}>
             {renderTasks()}
         </div>
     );

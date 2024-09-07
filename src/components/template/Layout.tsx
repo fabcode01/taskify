@@ -63,7 +63,7 @@ export default function Layout(props: LayoutProps){
 
     return (
        
-        <div className="bg-branco-claro h-screen text-black">
+        <div className="layout text-black">
                 <MenuTask
                  showMenuTask={showMenuTask}
                  hiddenMenuTask={MenuTaskHidden}/>

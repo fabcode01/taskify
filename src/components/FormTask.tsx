@@ -17,7 +17,7 @@ interface FormTask{
 
 export function FormTask(props: FormTask){
     const[description, setDescription] = useState('')
-    const[id, setId] = useState(1)
+    const[id, setId] = useState(Math.random())
     const[date, setDate] = useState('')
     const[type, setType] = useState('')
     const[error, setError] = useState('')
@@ -32,7 +32,7 @@ export function FormTask(props: FormTask){
                 setError('')
             },4000)
         }else{
-
+            
             const task = new Task(id, type, description, date, false)
 
             setLocalTask(task)
