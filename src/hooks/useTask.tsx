@@ -1,10 +1,15 @@
 
+import Task from "@/core/Task";
 import { useEffect, useState } from "react";
 
 export default function useTasks(){
     const[tasks, setTasks] = useState<any>([])
+    const[update, setUpdate] = useState(0)
+
+    
 
     useEffect(()=>{
+        
         const StoredTasks = localStorage.getItem('tasks')
         if(StoredTasks){
             setTasks(JSON.parse(StoredTasks))
@@ -13,60 +18,66 @@ export default function useTasks(){
     },[])
 
 
-    function setLocalTask(task: any){
+     function setLocalTask(task: Task){
+        setUpdate(prev => prev + 1)
+
         const taskObj = task.toObject()
 
-        const updateTasks = [...tasks, taskObj]
+        let updateTasks = [...tasks, taskObj]
         
         localStorage.setItem('tasks', JSON.stringify(updateTasks))
-
-        setTasks(updateTasks)
 
       
     }
 
-    function CheckOrUncheck(id: number){
-        
-       const updateTasks = [...tasks]
-
-       const taskIndex = updateTasks.findIndex((task)=> task.id === id)
-
-
-       if(taskIndex !== -1){
-        updateTasks[taskIndex].completed = !updateTasks[taskIndex].completed
-
-        setTasks(updateTasks)
-        localStorage.setItem('tasks', JSON.stringify(updateTasks))
-
-
-       }
-    }
 
     function deleteTask(id: number){
-        
-        
-        const updateTasks = [...tasks]
+                
 
-       const newTaks = updateTasks.filter((task) => task.id !== id)
-        
-    
-        
-        setTasks(newTaks)
+                const tasksLocal = localStorage.getItem('tasks')
 
-        localStorage.setItem('tasks', JSON.stringify(newTaks))
+                if(tasksLocal){
+
+                    const tasksObj = JSON.parse(tasksLocal)
+            
+                    const newTask = tasksObj.filter((task: any) => task.id !== id)
+                    
+            
+                    localStorage.setItem('tasks', JSON.stringify(newTask))
+                    
+             
+                    window.location.reload()
+                }
+
+        
+            
+
+       
+
 
     }
 
-    
 
+    function checkOrUncheck(id: number) {
+        const updatedTasks = tasks.map((task:any) => 
+            task.id === id 
+                ? { ...task, completed: !task.completed } 
+                : task
+        );
+
+        setTasks(updatedTasks);
+
+        localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+    }
 
     
 
 
     return {
+        update,
         tasks,
         setLocalTask,
-        CheckOrUncheck,
-        deleteTask
+        checkOrUncheck,
+        deleteTask,
     }
 }
