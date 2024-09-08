@@ -40,13 +40,24 @@ export default function useTasks(){
 
 
        }
+    }
 
-
-
-
+    function deleteTask(id: number){
         
+        
+        const updateTasks = [...tasks]
+
+       const newTaks = updateTasks.filter((task) => task.id !== id)
+        
+    
+        
+        setTasks(newTaks)
+
+        localStorage.setItem('tasks', JSON.stringify(newTaks))
 
     }
+
+    
 
 
     
@@ -55,6 +66,7 @@ export default function useTasks(){
     return {
         tasks,
         setLocalTask,
-        CheckOrUncheck
+        CheckOrUncheck,
+        deleteTask
     }
 }

@@ -9,9 +9,9 @@ interface TasksProps{
 export function Tasks(props: TasksProps){
     
 
+    const{tasks, CheckOrUncheck, deleteTask} = useTasks()
    
 
-    const{tasks, CheckOrUncheck} = useTasks()
 
  
     
@@ -34,17 +34,16 @@ export function Tasks(props: TasksProps){
   
 
     function renderTasks(){
-        
-        
-
-        if(tasks.length == 0){
-            return <div className="flex justify-center items-center">
-                <div className="flex items-center gap-2">Clique no 
-                    <div className="flex items-center justify-center h-10 w-10 bg-azul-escuro text-white p-2 rounded-md">+</div> 
-                para adicionar uma nova tarefa!</div>
-            </div>
+       
+        if(localStorage.getItem('tasks') == '[]'){
+            
+            return (
+                <div className="flex justify-center">
+                    <h1>Adicione uma Tarefa!</h1>
+                </div>
+            )
         }else{
-            return tasks.map((task: any, index: number) => (
+            return tasks.map((task: any) => (
                
                 
                 <div key={task.id} className={
@@ -61,13 +60,17 @@ export function Tasks(props: TasksProps){
                             <span onClick={()=>CheckOrUncheck(task.id)}  className="text-green-600 cursor-pointer active:scale-110">{checkIcon}</span>
                         )}
 
-                        <div className=" dropdown cursor-pointer">
+                        <div className="dropdown cursor-pointer">
                             <div tabIndex={0} role="button" className="m-1 bg-transparent border-none text-black active:scale-110">
                                 {elipsisVerticalIcon}
                             </div>
-                            <ul className="relative right-5 menu dropdown-content bg-branco-claro rounded-box z-[1] p-2">
-                                <li><a>Edit</a></li>
-                                <li><a>Delete</a></li>
+                           
+
+                            <ul className="flex flex-col items-center gap-2 relative right-5 menu dropdown-content bg-branco-claro rounded-box z-[1] p-4 w-40">
+
+                                <button className="bg-branco-cinzinha text-base hover:bg-azul-escuro w-full hover:text-white rounded-md p-2" ><a><span>Edit</span></a></button>
+
+                                <button className="bg-branco-cinzinha text-base hover:bg-red-700 w-full hover:text-white rounded-md p-2" onClick={()=>deleteTask(task.id)}><a><span>Delete</span></a></button>
                             </ul>
                         
                             
