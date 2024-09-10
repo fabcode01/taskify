@@ -1,12 +1,12 @@
 
+
 import Task from "@/core/Task";
 import { useEffect, useState } from "react";
 
 export default function useTasks(){
     const[tasks, setTasks] = useState<any>([])
-    const[update, setUpdate] = useState(0)
 
-    
+    const[idEdit, setIdEdit] = useState()
 
     useEffect(()=>{
         
@@ -18,18 +18,34 @@ export default function useTasks(){
     },[])
 
 
-     function setLocalTask(task: Task){
-        setUpdate(prev => prev + 1)
-
-        const taskObj = task.toObject()
-
-        let updateTasks = [...tasks, taskObj]
+    function setLocalTask(task: Task) {
+        const taskObj = task.toObject();
+    
+        // Obter as tasks do localStorage, ou iniciar como um array vazio se for nulo
+        const localS = localStorage.getItem('tasks');
         
-        localStorage.setItem('tasks', JSON.stringify(updateTasks))
-
-      
+        const tasks = localS ? JSON.parse(localS) : [];
+    
+        // Verifica se já existe uma task com o mesmo id
+        const taskIndex = tasks.findIndex((t: any) => t.id === taskObj.id);
+    
+        if (taskIndex !== -1) {
+            // Se já existir, atualiza a task com os novos valores
+            tasks[taskIndex] = {
+                ...tasks[taskIndex],
+                description: taskObj.description,
+                date: taskObj.date,
+                type: taskObj.type
+            };
+        } else {
+            // Se não existir, adiciona uma nova task
+            tasks.push(taskObj);
+        }
+    
+        // Atualiza o localStorage com o novo array de tasks
+        localStorage.setItem('tasks', JSON.stringify(tasks));
     }
-
+    
 
     function deleteTask(id: number){
                 
@@ -50,10 +66,6 @@ export default function useTasks(){
                 }
 
         
-            
-
-       
-
 
     }
 
@@ -70,14 +82,12 @@ export default function useTasks(){
         localStorage.setItem('tasks', JSON.stringify(updatedTasks));
     }
 
-    
-
 
     return {
-        update,
         tasks,
         setLocalTask,
         checkOrUncheck,
         deleteTask,
+       
     }
 }

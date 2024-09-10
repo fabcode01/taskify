@@ -1,13 +1,19 @@
-import useTasks from "@/hooks/useTask";
+
 import { arrowDown } from "../../icons";
 import { Tasks } from "../Tasks";
 import { useState } from "react";
 
 
-export default function Home(){
-   
+interface HomeProps{
+    editarTask: (id: any)=>void
+}
 
-    const{tasks} = useTasks()
+export default function Home(props: HomeProps){
+
+    function editarTasks(id: any){
+        props.editarTask(id)
+        
+    }
 
     return (
         <main className="flex flex-col items-center mt-14 p-5">
@@ -26,8 +32,8 @@ export default function Home(){
             </div>
 
             
-                    <div className="mt-10 w-full h-[27rem]">
-                        <Tasks />
+                    <div className="mt-10 w-full">
+                        <Tasks editarTasks={editarTasks}/>
                     </div>
                
             </main>

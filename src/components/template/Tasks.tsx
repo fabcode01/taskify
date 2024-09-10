@@ -3,21 +3,28 @@ import { checkIcon, educationIcon, elipsisVerticalIcon, financeIcon, healthIcon,
 import { useState } from "react";
 
 
-interface TasksProps{}
+interface TasksProps{
+    editarTasks: (id: any)=>void
+}
 
 export function Tasks(props: TasksProps){
 
-    const { update, tasks, checkOrUncheck, deleteTask } = useTasks();
+    const { tasks, checkOrUncheck, deleteTask } = useTasks();
 
     const [translateTaskId, setTranslateTaskId] = useState<string | null>(null);
 
     function taskDelete(taskId: any) {
-        
         // setTranslateTaskId(taskId);
 
         deleteTask(taskId);
     
-       
+    }
+
+
+    function editarTasks(id: number){
+
+        props.editarTasks(id)
+
     }
 
     function typeSelect(type: string) {
@@ -74,9 +81,12 @@ export function Tasks(props: TasksProps){
                                 {elipsisVerticalIcon}
                             </div>
                             <ul className="flex flex-col items-center gap-2 relative right-5 menu dropdown-content bg-branco-claro rounded-box z-[1] p-4 w-40">
-                                <button className="bg-branco-cinzinha text-base hover:bg-azul-escuro w-full hover:text-white rounded-md p-2">
+
+                                <button className="bg-branco-cinzinha text-base hover:bg-azul-escuro w-full hover:text-white rounded-md p-2" 
+                                 onClick={()=> editarTasks(task.id)}>
                                     <a><span>Edit</span></a>
                                 </button>
+
                                 <button className="bg-branco-cinzinha text-base hover:bg-red-700 w-full hover:text-white rounded-md p-2" onClick={() => taskDelete(task.id)}>
                                     <a><span>Delete</span></a>
                                 </button>
@@ -90,7 +100,6 @@ export function Tasks(props: TasksProps){
 
     return (
         <div className="taskContainer flex flex-col gap-5">
-            
             {renderTasks()}
         </div>
     );

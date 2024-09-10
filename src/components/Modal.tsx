@@ -1,10 +1,5 @@
 'use client'
 
-import { useState } from "react"
-import { Form } from "./FormAuth"
-
-
-
 interface ModalProps{
     modalActive: boolean 
     hiddenMenu?: ()=>void
@@ -15,7 +10,6 @@ interface ModalProps{
 
 export function Modal(props: ModalProps){
 
-    const[error, setError] = useState('')
 
 
     return (
