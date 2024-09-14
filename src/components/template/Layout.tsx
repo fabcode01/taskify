@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Nav, { Pages } from "./Nav";
 import Top from "./Top";
 import Home from "./Pages/Home";
@@ -9,7 +9,7 @@ import Pending from "./Pages/Pending";
 import Settings from "./Pages/Settings";
 import  {MenuAuth}  from "./MenuAuth";
 import  {MenuTask}  from "./MenuTask";
-import useTasks from "@/hooks/useTask";
+
 
 
 
@@ -20,6 +20,7 @@ interface LayoutProps{
 }
 
 export default function Layout(props: LayoutProps){
+
 
     const[currentPage, setCurrentPage] = useState<Pages>('home')
     
@@ -65,7 +66,7 @@ export default function Layout(props: LayoutProps){
 
 
 
-
+    // controle modal pra editar task
     const[taskToEdit, setTaskToEdit] = useState('')
 
     function editarTask(id:number){
@@ -85,9 +86,11 @@ export default function Layout(props: LayoutProps){
     }
 
 
+    
     return (
        
         <div className="layout text-black">
+    
                 <MenuTask
                  showMenuTask={showMenuTask}
                  hiddenMenuTask={MenuTaskHidden}
@@ -105,4 +108,8 @@ export default function Layout(props: LayoutProps){
         </div>
       
     )
+}
+
+function useDriver() {
+    throw new Error("Function not implemented.");
 }

@@ -21,7 +21,7 @@ export default function Top(props: TopProps){
 
                     <div onClick={props.showMenuAuth} className="cursor-pointer bg-neutral text-neutral-content w-12 rounded-full active:scale-105">
 
-                       <span>{userIcon}</span>
+                       <span id='login'>{userIcon}</span>
                         
                     </div>
                 </div>

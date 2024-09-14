@@ -9,6 +9,8 @@ interface TasksProps{
 
 export function Tasks(props: TasksProps){
 
+     const moment = require('moment')
+
     const { tasks, checkOrUncheck, deleteTask } = useTasks();
 
     const [translateTaskId, setTranslateTaskId] = useState<string | null>(null);
@@ -57,40 +59,41 @@ export function Tasks(props: TasksProps){
                 // </div>
             );
         } else {
-            return tasks.map((task: any, index: any) => (
-                <div key={task.id} className={
-                    `relative duration-150 flex items-center justify-between ${
-                        translateTaskId === task.id ? 'opacity-0' : ''
-                    } ${task.completed === false ? 'bg-branco-cinzinha' : 'bg-green-200'} p-6 rounded-md`
-                }>
-                    <span className="text-azul-clarinho">{typeSelect(task.type)}</span>
-                    <span>{task.description}</span>
-                    <div className="flex items-center">
-                        {task.completed === true ? (
-                            <span onClick={() => checkOrUncheck(task.id)} className="text-red-600 cursor-pointer active:scale-110">
-                                {xIcon}
-                            </span>
-                        ) : (
-                            <span onClick={() => checkOrUncheck(task.id)} className="text-green-600 cursor-pointer active:scale-110">
-                                {checkIcon}
-                            </span>
-                        )}
-
-                        <div className="dropdown cursor-pointer">
-                            <div tabIndex={0} role="button" className="m-1 bg-transparent border-none text-black active:scale-110">
-                                {elipsisVerticalIcon}
+            return tasks.map((task: any) => (
+                <div>
+                    <span className="bg-branco-cinzinha p-3 rounded-lg">{task.date}</span>
+                    <div key={task.id} className={
+                        `relative duration-150 flex items-center justify-between ${
+                            translateTaskId === task.id ? 'opacity-0' : ''
+                        } ${task.completed === false ? 'bg-branco-cinzinha' : 'bg-green-200'} p-6 rounded-md`
+                    }>
+                    
+                        <span className="text-azul-clarinho">{typeSelect(task.type)}</span>
+                        <span>{task.description}</span>
+                        <div className="flex items-center">
+                            {task.completed === true ? (
+                                <span onClick={() => checkOrUncheck(task.id)} className="text-red-600 cursor-pointer active:scale-110">
+                                    {xIcon}
+                                </span>
+                            ) : (
+                                <span onClick={() => checkOrUncheck(task.id)} className="text-green-600 cursor-pointer active:scale-110">
+                                    {checkIcon}
+                                </span>
+                            )}
+                            <div className="dropdown cursor-pointer">
+                                <div tabIndex={0} role="button" className="m-1 bg-transparent border-none text-black active:scale-110">
+                                    {elipsisVerticalIcon}
+                                </div>
+                                <ul className="flex flex-col items-center gap-2 relative right-5 menu dropdown-content bg-branco-claro rounded-box z-[1] p-4 w-40">
+                                    <button className="bg-branco-cinzinha text-base hover:bg-azul-escuro w-full hover:text-white rounded-md p-2"
+                                     onClick={()=> editarTasks(task.id)}>
+                                        <a><span>Edit</span></a>
+                                    </button>
+                                    <button className="bg-branco-cinzinha text-base hover:bg-red-700 w-full hover:text-white rounded-md p-2" onClick={() => taskDelete(task.id)}>
+                                        <a><span>Delete</span></a>
+                                    </button>
+                                </ul>
                             </div>
-                            <ul className="flex flex-col items-center gap-2 relative right-5 menu dropdown-content bg-branco-claro rounded-box z-[1] p-4 w-40">
-
-                                <button className="bg-branco-cinzinha text-base hover:bg-azul-escuro w-full hover:text-white rounded-md p-2" 
-                                 onClick={()=> editarTasks(task.id)}>
-                                    <a><span>Edit</span></a>
-                                </button>
-
-                                <button className="bg-branco-cinzinha text-base hover:bg-red-700 w-full hover:text-white rounded-md p-2" onClick={() => taskDelete(task.id)}>
-                                    <a><span>Delete</span></a>
-                                </button>
-                            </ul>
                         </div>
                     </div>
                 </div>
