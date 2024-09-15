@@ -17,7 +17,7 @@ export default function Home() {
       localStorage.setItem('tutorial', 'true')
     } 
 
-  },[])
+  },[initDriver])
 
   return (
 

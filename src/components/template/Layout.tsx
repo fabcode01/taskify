@@ -21,15 +21,11 @@ interface LayoutProps{
 
 export default function Layout(props: LayoutProps){
 
-
     const[currentPage, setCurrentPage] = useState<Pages>('home')
     
-  
     function changePage(page: Pages){
         setCurrentPage(page)
     }
-
-   
 
     function renderizarPage(){
        
@@ -46,6 +42,7 @@ export default function Layout(props: LayoutProps){
         
     }
 
+
     // controle modal auth
     const[showMenuAuth, setShowMenuAuth] = useState<boolean>(false)
 
@@ -53,17 +50,12 @@ export default function Layout(props: LayoutProps){
         setShowMenuAuth(showMenuAuth ? false : true)
     }
 
-    
-
     //controle modal nova task
     const[showMenuTask, setShowMenuTask] = useState<true | false>(false)
-
- 
 
     function MenuTaskHidden(){
         setShowMenuTask(showMenuTask === false ? true : false)
     }
-
 
 
     // controle modal pra editar task
@@ -80,11 +72,7 @@ export default function Layout(props: LayoutProps){
                 
 
             }
-
-
-
-    }
-
+        }
 
     
     return (

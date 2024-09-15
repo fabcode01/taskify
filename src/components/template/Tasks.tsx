@@ -1,19 +1,19 @@
 import useTasks from "@/hooks/useTask"
 import { checkIcon, educationIcon, elipsisVerticalIcon, financeIcon, healthIcon, personalIcon, xIcon } from "../icons"
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
 
 
 interface TasksProps{
     editarTasks: (id: any)=>void
+   
 }
 
 export function Tasks(props: TasksProps){
 
-     const moment = require('moment')
+    const[allTasks, SetAllTaks] = useState([])
 
     const { tasks, checkOrUncheck, deleteTask } = useTasks();
-
-    const [translateTaskId, setTranslateTaskId] = useState<string | null>(null);
 
     function taskDelete(taskId: any) {
         // setTranslateTaskId(taskId);
@@ -28,6 +28,10 @@ export function Tasks(props: TasksProps){
         props.editarTasks(id)
 
     }
+
+    useEffect(()=>{
+        SetAllTaks(tasks)
+    },[tasks])
 
     function typeSelect(type: string) {
         switch (type) {
@@ -44,9 +48,10 @@ export function Tasks(props: TasksProps){
         }
     }
 
+
     function renderTasks() {
 
-        if (tasks.length === 0) {
+        if (allTasks?.length === 0) {
             return (
                 <div></div>
                 // <div className="flex flex-col items-center">
@@ -59,13 +64,12 @@ export function Tasks(props: TasksProps){
                 // </div>
             );
         } else {
-            return tasks.map((task: any) => (
-                <div>
+            return allTasks?.map((task: any) => (
+                <div key={task.id}>
                     <span className="bg-branco-cinzinha p-3 rounded-lg">{task.date}</span>
                     <div key={task.id} className={
-                        `relative duration-150 flex items-center justify-between ${
-                            translateTaskId === task.id ? 'opacity-0' : ''
-                        } ${task.completed === false ? 'bg-branco-cinzinha' : 'bg-green-200'} p-6 rounded-md`
+                        `relative duration-150 flex items-center justify-between
+                        ${task.completed === false ? 'bg-branco-cinzinha' : 'bg-green-200'} p-6 rounded-md`
                     }>
                     
                         <span className="text-azul-clarinho">{typeSelect(task.type)}</span>

@@ -6,8 +6,6 @@ import { useEffect, useState } from "react";
 export default function useTasks(){
     const[tasks, setTasks] = useState<any>([])
 
-    const[idEdit, setIdEdit] = useState()
-
     useEffect(()=>{
         
         const StoredTasks = localStorage.getItem('tasks')
@@ -83,11 +81,62 @@ export default function useTasks(){
     }
 
 
+    const[sortbyActive, setSortByActive] = useState<any>()
+
+    function sortBy(mode: string){
+
+        if(mode == 'asc'){
+            localStorage.setItem('sort', 'asc')
+
+            setSortByActive(localStorage.getItem('sort'))
+
+            const sorted = [...tasks].sort((a: any, b: any) => {
+                const dateA = new Date(a.date).getTime()
+                const dateB = new Date(b.date).getTime()
+    
+                
+                return dateB - dateA
+
+            }
+        )
+
+            localStorage.setItem('tasks', JSON.stringify(sorted));
+
+            window.location.reload()
+
+        } else{
+            localStorage.setItem('sort', 'dec')
+
+            setSortByActive(localStorage.getItem('sort'))
+
+            const sorted = [...tasks].sort((a: any, b: any) => {
+                const dateA = new Date(a.date).getTime()
+                const dateB = new Date(b.date).getTime()
+    
+                
+                return dateA - dateB  
+
+            }
+        )
+
+            localStorage.setItem('tasks', JSON.stringify(sorted));
+
+            window.location.reload()
+
+                    
+        }
+
+    }
+
+
     return {
         tasks,
         setLocalTask,
         checkOrUncheck,
         deleteTask,
+        sortBy,
+        sortbyActive
+        
        
     }
 }
