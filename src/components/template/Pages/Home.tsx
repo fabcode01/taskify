@@ -3,6 +3,7 @@ import useTasks from "@/hooks/useTask";
 import { arrowDown } from "../../icons";
 import { Tasks } from "../Tasks";
 import { useEffect, useState } from "react";
+import { Title } from "@/components/Title";
 
 
 
@@ -13,7 +14,7 @@ interface HomeProps{
 
 export default function Home(props: HomeProps){
 
-    const{ tasks, sortBy, sortbyActive } = useTasks()
+    const{ sortBy } = useTasks()
 
     const[localSort, setLocalSort] = useState<string | null>('asc')
 
@@ -35,9 +36,7 @@ export default function Home(props: HomeProps){
         <main className="flex flex-col items-center mt-14 p-5">
 
             <div className="flex w-full items-center justify-between">
-                <div>
-                    <h2 className="font-semibold text-azul-medio text-xl">Tasks</h2>
-                </div>
+                <Title title="Tasks"/>
                 <div className="dropdown ">
                         <div tabIndex={0} role="button" className="btn flex items-center bg-azul-escuro text-azul-clarinho hover:bg-azul-medio">sort by {arrowDown}</div>
 
@@ -53,7 +52,7 @@ export default function Home(props: HomeProps){
 
             
                     <div className="mt-10 w-full">
-                        <Tasks editarTasks={editarTasks}/>
+                        <Tasks filter="all" editarTasks={editarTasks}/>
                     </div>
                
             </main>

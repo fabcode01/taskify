@@ -15,7 +15,7 @@ interface NavProps{
 
 
 export default function Nav(props: NavProps){
-    const[iconSize, setIconSize] = useState(props.iconSize)
+    const[iconSize] = useState(props.iconSize)
 
     const[showNav, setShowNav] = useState('bottom-0')
 

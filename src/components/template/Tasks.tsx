@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 
 
 interface TasksProps{
-    editarTasks: (id: any)=>void
+    editarTasks?: (id: any)=>void
+    filter: 'all' | 'pending'
    
 }
 
@@ -25,7 +26,7 @@ export function Tasks(props: TasksProps){
 
     function editarTasks(id: number){
 
-        props.editarTasks(id)
+        props.editarTasks && props.editarTasks(id)
 
     }
 
@@ -50,6 +51,50 @@ export function Tasks(props: TasksProps){
 
 
     function renderTasks() {
+
+        if(props.filter == 'pending'){
+            return (
+                tasks.filter((item: any) => item.completed == false).map((task: any) => (
+                    <div key={task.id}>
+                    <span className="bg-branco-cinzinha p-3 rounded-lg">{task.date}</span>
+                    <div key={task.id} className={
+                        `relative duration-150 flex items-center justify-between
+                        ${task.completed === false ? 'bg-branco-cinzinha' : 'bg-green-200'} p-6 rounded-md`
+                    }>
+                    
+                        <span className="text-azul-clarinho">{typeSelect(task.type)}</span>
+                        <span>{task.description}</span>
+                        <div className="flex items-center">
+                            {task.completed === true ? (
+                                <span onClick={() => checkOrUncheck(task.id)} className="text-red-600 cursor-pointer active:scale-110">
+                                    {xIcon}
+                                </span>
+                            ) : (
+                                <span onClick={() => checkOrUncheck(task.id)} className="text-green-600 cursor-pointer active:scale-110">
+                                    {checkIcon}
+                                </span>
+                            )}
+                            <div className="dropdown cursor-pointer">
+                                <div tabIndex={0} role="button" className="m-1 bg-transparent border-none text-black active:scale-110">
+                                    {elipsisVerticalIcon}
+                                </div>
+                                <ul className="flex flex-col items-center gap-2 relative right-5 menu dropdown-content bg-branco-claro rounded-box z-[1] p-4 w-40">
+                                    <button className="bg-branco-cinzinha text-base hover:bg-azul-escuro w-full hover:text-white rounded-md p-2"
+                                     onClick={()=> editarTasks(task.id)}>
+                                        <a><span>Edit</span></a>
+                                    </button>
+                                    <button className="bg-branco-cinzinha text-base hover:bg-red-700 w-full hover:text-white rounded-md p-2" onClick={() => taskDelete(task.id)}>
+                                        <a><span>Delete</span></a>
+                                    </button>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                ))
+            )
+        }
+        
 
         if (allTasks?.length === 0) {
             return (
