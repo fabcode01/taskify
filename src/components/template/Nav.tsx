@@ -1,9 +1,9 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import { addIcon, bellIcon, clockIcon, homeIcon, settingsIcon } from "../icons";
+import { addIcon, bellIcon, clockIcon, completedIcon, homeIcon, settingsIcon } from "../icons";
 
-export type Pages = 'home' | 'pending' | 'updates' | 'settings'
+export type Pages = 'home' | 'completed' | 'updates' | 'settings'
 
 interface NavProps{
     iconSize: number
@@ -58,9 +58,9 @@ export default function Nav(props: NavProps){
                     <p>Home</p>
                 </div>
 
-                <div onClick={() => props.changePage('pending')}  className={`${items} text-azul-clarinho ${props.currentPage === 'pending' ? 'text-azul-claro' : ''}`}>
-                    <li>{clockIcon(iconSize)}</li>
-                    <p>Pending</p>
+                <div onClick={() => props.changePage('completed')}  className={`${items} text-azul-clarinho ${props.currentPage === 'completed' ? 'text-azul-claro' : ''}`}>
+                    <li>{completedIcon(iconSize)}</li>
+                    <p>Completed</p>
                 </div>
 
                 <div  onClick={props.MenuTaskShow} className={`

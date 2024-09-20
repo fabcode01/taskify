@@ -5,7 +5,7 @@ import Nav, { Pages } from "./Nav";
 import Top from "./Top";
 import Home from "./Pages/Home";
 import Updates from "./Pages/Updates";
-import Pending from "./Pages/Completed";
+import Completed from "./Pages/Completed";
 import Settings from "./Pages/Settings";
 import { MenuAuth } from "./MenuAuth";
 import { MenuTask } from "./MenuTask";
@@ -19,20 +19,24 @@ export default function Layout(props: LayoutProps) {
 
   function changePage(page: Pages) {
     setCurrentPage(page);
+    localStorage.setItem('page', page)
   }
 
   useEffect(() => {
-    const lastPage = localStorage.getItem("page");
-    if (lastPage) {
+
+    const lastPage = localStorage.getItem("page") ? localStorage.getItem("page") : 'home'
+    
+    if(lastPage){
         setCurrentPage(lastPage)
-        
+    }else {
+        setCurrentPage('home')
+        localStorage.setItem('page', currentPage)
       
     }
-  }, []);
 
-  useEffect(()=>{
-    localStorage.setItem('page', currentPage)
-  },[currentPage])
+
+
+  }, []);
 
   function renderizarPage() {
     if (currentPage == "home") {
@@ -41,9 +45,9 @@ export default function Layout(props: LayoutProps) {
     } else if (currentPage == "updates") {
       
       return <Updates />;
-    } else if (currentPage == "pending") {
+    } else if (currentPage == "completed") {
     
-      return <Pending />;
+      return <Completed />;
     } else if (currentPage == 'settings'){
 
       return <Settings />;

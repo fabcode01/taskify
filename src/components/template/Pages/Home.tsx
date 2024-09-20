@@ -22,7 +22,7 @@ export default function Home(props: HomeProps){
       const item = localStorage.getItem('sort')
        setLocalSort(item)
         
-    })
+    },[])
 
     function editarTasks(id: any){
         props.editarTask(id)
