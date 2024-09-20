@@ -7,7 +7,7 @@ export type Pages = 'home' | 'pending' | 'updates' | 'settings'
 
 interface NavProps{
     iconSize: number
-    currentPage: Pages
+    currentPage: Pages | string
     changePage: (page: Pages) => void
     MenuTaskShow?: () => void
 }

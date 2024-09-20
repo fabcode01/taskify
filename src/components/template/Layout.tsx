@@ -15,7 +15,7 @@ interface LayoutProps {
 }
 
 export default function Layout(props: LayoutProps) {
-  const [currentPage, setCurrentPage] = useState<Pages | ''>("");
+  const [currentPage, setCurrentPage] = useState<Pages | string>("");
 
   function changePage(page: Pages) {
     setCurrentPage(page);
@@ -30,18 +30,22 @@ export default function Layout(props: LayoutProps) {
     }
   }, []);
 
+  useEffect(()=>{
+    localStorage.setItem('page', currentPage)
+  },[currentPage])
+
   function renderizarPage() {
     if (currentPage == "home") {
-      localStorage.setItem('page', 'home')  
+      
       return <Home editarTask={editarTask} />;
     } else if (currentPage == "updates") {
-        localStorage.setItem('page', 'updates')  
+      
       return <Updates />;
     } else if (currentPage == "pending") {
-        localStorage.setItem('page', 'pending')  
+    
       return <Pending />;
     } else if (currentPage == 'settings'){
-        localStorage.setItem('page', 'settings')  
+
       return <Settings />;
     }
   }
