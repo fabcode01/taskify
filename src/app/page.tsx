@@ -2,6 +2,7 @@
 
 
 import Layout from "@/components/template/Layout";
+import { AuthProvider } from "@/context/AuthContext";
 import useDriver from '@/hooks/useDriver'
 import { useEffect } from "react";
 
@@ -20,10 +21,12 @@ export default function Home() {
   },[initDriver])
 
   return (
-
-        <Layout>
-        
-        </Layout>
+  <AuthProvider>
+            <Layout>
+    
+            </Layout>
+  </AuthProvider>
+    
   
 
   );

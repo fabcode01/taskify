@@ -3,7 +3,10 @@
 import { airplaneIcon, googleIcon } from "./icons"
 import Input from "./Input"
 import Button from "./Button"
-import { useState } from "react"
+import { useContext, useState } from "react"
+import AuthContext from "@/context/AuthContext"
+
+
 
 interface FormProps{
     title: string
@@ -12,6 +15,9 @@ interface FormProps{
 }
 
 export function Form(props: FormProps){
+
+    const{loginGoogle} = useContext(AuthContext)
+    
     const[email, setEmail] = useState('')
     const[password, setPassword] = useState('')
 
@@ -20,9 +26,6 @@ export function Form(props: FormProps){
         
     }
 
-    function loginWithGoogle(){
-        console.log(email, password);
-    }
 
 
     return (
@@ -35,8 +38,10 @@ export function Form(props: FormProps){
                 <Input inputType="password" placeholder="Password" onChange={setPassword}/>
 
                 <div className="flex gap-2">
-                    <Button icon={googleIcon} className="bg-gray-300" submit={loginWithGoogle}/>
-                    <Button icon={airplaneIcon} className="bg-azul-escuro text-azul-clarinho hover:bg-blue-950" submit={loginWithEmail}/>
+                    
+                    <Button onClick={loginGoogle} icon={googleIcon} className="bg-gray-300"/>
+
+                    <Button icon={airplaneIcon} className="bg-azul-escuro text-azul-clarinho hover:bg-blue-950"/>
                 </div>
 
 

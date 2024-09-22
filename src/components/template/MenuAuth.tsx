@@ -1,8 +1,11 @@
 'use client'
 
-import { useState } from "react"
+import { useContext, useState } from "react"
 import  {Form}  from "../FormAuth"
 import { Modal } from "../Modal"
+import AuthContext from "@/context/AuthContext"
+import Button from "../Button"
+import { editIcon, logoTaskify, logoutIcon } from "../icons"
 
 interface MenuLoginProps{
     showMenuAuth: boolean
@@ -10,6 +13,9 @@ interface MenuLoginProps{
 }
 
 export function MenuAuth(props: MenuLoginProps){
+
+    const{usuario, logout, carregando} = useContext(AuthContext)
+
     const[AuthMode, setAuthMode] = useState<'login' | 'register'>('login')
 
     function switchAuthMode(){
@@ -20,9 +26,40 @@ export function MenuAuth(props: MenuLoginProps){
         }
     }
 
+    function renderProfile(){
+        return (
+            <div className="flex flex-col items-center mt-5">
+            <img src={usuario?.image} alt="usuario" className="w-20 h-20 rounded-full border"/>
+            <h2 className="mt-3 text-lg font-semibold">Olá, {usuario?.nome}</h2>
+
+            
+                <Button text="Edit" icon={editIcon}  className="bg-slate-300"/>
+                <Button onClick={logout} icon={logoutIcon} text="logout" className="bg-red-700 text-white hover:bg-red-950"/>
+            
+        </div>
+        )
+    }
+
     return (
       <Modal modalActive={props.showMenuAuth} hiddenMenu={props.hiddenMenuAuth} className="rounded-b-[43px]">
-            <Form title={AuthMode === 'login' ? 'Login' : 'Register'} AuthMode={AuthMode} changeMode={switchAuthMode}/>
+
+           
+                
+            {carregando ? (
+                <div className="h-full flex justify-center items-center animate-pulse rounded-full">
+                    {logoTaskify(88)}
+                </div>
+            ) : (
+                usuario ? (
+                    renderProfile()
+                ) : (
+                    <Form title={AuthMode === 'login' ? 'Login' : 'Register'} AuthMode={AuthMode} changeMode={switchAuthMode}/>
+                )
+            )}
+
+
+
+           
       </Modal>
     )
 }

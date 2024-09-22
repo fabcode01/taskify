@@ -9,14 +9,15 @@ interface ButtonProps{
     text?: string
     width?: string
     className?: string
-    submit: ()=> void
+    submit?: ()=> void
+    onClick?: ()=> void
     
 }
 
 export default function Button(props: ButtonProps){
     return (
         <div className="flex mt-5 gap-2">
-            <button onClick={props.submit} className={`btn ${props.width ? props.width : 'w-32'} ${props.className} ${props.type}`} >{props.icon} {props.text}</button>
+            <button onClick={props.submit || props.onClick} className={`btn ${props.width ? props.width : 'w-32'} ${props.className} ${props.type}`} >{props.icon} {props.text}</button>
         </div>
     )
 }
