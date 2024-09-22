@@ -15,26 +15,25 @@ interface FormTask{
     title?: string
     value?: any
     taskToEdit?: any
-    clearForm: string 
+    clearForm: string
+    closeModal?:  ()=>void
 
 }
 
 export function FormTask(props: FormTask){
 
+
     const[description, setDescription] = useState('')
-    const[id, setId] = useState(Math.random())
+    const[id, setId] = useState(0)
     const[date, setDate] = useState('')
     const[type, setType] = useState('Finance')
     const[error, setError] = useState('')
 
-
-    useEffect(()=>{
-      editTask(props.taskToEdit)
-    },[props.taskToEdit])
-
-    const { setLocalTask } = useTasks()
+    const { addTask } = useTasks()
 
     function newTask(){
+
+        
 
         if(!type || !date ||  !description){
             setError('Some fields are missing.')
@@ -44,38 +43,27 @@ export function FormTask(props: FormTask){
         }else{
             
             const task = new Task(id, type, description, date, false)
-
-            setLocalTask(task)
-            window.location.reload()
-           
-
-        }
-    }
-
-    function editTask(task: any){
-
-        const taskedit = task
-        if(taskedit){
             
-            taskedit.map((task: any)=> {
-                setId(task.id)
-                setDescription(task.description)
-                setDate(task.date)
-                setType(task.type)
-        })
+            addTask(task)
+
+            props.closeModal && props.closeModal()
 
         }
+
     }
+
 
     useEffect(()=>{
         setError('')
     },[description, date, type])
+
 
     useEffect(()=>{
         setId(Math.random())
         setDate('')
         setDescription('')
     },[props.clearForm])
+
 
 
     return (
@@ -96,7 +84,7 @@ export function FormTask(props: FormTask){
 
                 <div className="flex">
                     
-                    <Button submit={newTask } width="w-40" icon={airplaneIcon} type="bg-azul-escuro text-azul-clarinho hover:bg-blue-950"/>
+                    <Button submit={newTask} width="w-40" icon={airplaneIcon} type="bg-azul-escuro text-azul-clarinho hover:bg-blue-950"/>
                 </div>
 
                 <Error message={error}/>

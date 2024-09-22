@@ -1,3 +1,5 @@
+'use client'
+
 import useTasks from "@/hooks/useTask"
 import { checkIcon, educationIcon, elipsisVerticalIcon, financeIcon, healthIcon, personalIcon, xIcon } from "../icons"
 import { useEffect, useState } from "react";
@@ -12,16 +14,16 @@ interface TasksProps{
 
 export function Tasks(props: TasksProps){
 
-    const[allTasks, SetAllTaks] = useState([])
 
-    const { tasks, checkOrUncheck, deleteTask } = useTasks();
-
+    const { tasks, checkOrUncheck, deleteTask, carregando } = useTasks();
+    
+    const[local, setLocal] = useState([])
+ 
     function taskDelete(taskId: any) {
         // setTranslateTaskId(taskId);
-
         deleteTask(taskId);
     
-    }
+    }  
 
 
     function editarTasks(id: number){
@@ -30,8 +32,9 @@ export function Tasks(props: TasksProps){
 
     }
 
+
     useEffect(()=>{
-        SetAllTaks(tasks)
+        setLocal(tasks)
     },[tasks])
 
     function typeSelect(type: string) {
@@ -56,8 +59,9 @@ export function Tasks(props: TasksProps){
 
             
             
-                return (
-                    tasks.filter((item:any) => item.completed == mode).map((task:any) => (
+                return local
+                    .filter((item:any) => item.completed == mode)
+                    .map((task:any) => (
                         <div key={task.id}>
                         <span className={`bg-branco-cinzinha p-3 rounded-lg ${task.completed === false ? 'bg-branco-cinzinha' : 'bg-green-200'}`}>{task.date}</span>
                         <div key={task.id} className={
@@ -102,17 +106,24 @@ export function Tasks(props: TasksProps){
                         </div>
                     </div>
                     ))  
-                )
-           
+                
+        
             
         }
-            
-        
 
 
     return (
         <div className="taskContainer flex flex-col gap-5">
-            {renderTasks()}
+
+            {carregando ? (
+                <div className="flex justify-center items-center">
+                    Carregando...
+                </div>
+            ): (
+                
+               local && renderTasks()
+
+            )}
         </div>
     );
 }

@@ -13,23 +13,23 @@ export default class Task {
         this.#completed = completed
     }
 
-    get GET_ID(){
+    get id(){
         return this.#id
     }
 
-    get GET_TYPE(){
+    get type(){
         return this.#type
     }
 
-    get GET_DESCRIPTION(){
+    get description(){
         return this.#description
     }
 
-    get GET_DATE(){
+    get date(){
         return this.#date
     }
 
-    get GET_COMPLETED(){
+    get completed(){
         return this.#completed
     }
 

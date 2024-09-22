@@ -4,6 +4,9 @@ import { arrowDown } from "../../icons";
 import { Tasks } from "../Tasks";
 import { useEffect, useState } from "react";
 import { Title } from "@/components/Title";
+import Button from "@/components/Button";
+import useCloudTask from "@/context/useCloudTask";
+
 
 
 
@@ -13,6 +16,8 @@ interface HomeProps{
   
 
 export default function Home(props: HomeProps){
+
+    const{addCloudTask} = useCloudTask()
 
     const{ sortBy } = useTasks()
 
@@ -34,6 +39,8 @@ export default function Home(props: HomeProps){
 
     return (
         <main className="flex flex-col items-center mt-14 p-5">
+
+            
 
             <div className="flex w-full items-center justify-between">
                 <Title title="Tasks"/>

@@ -1,10 +1,17 @@
-
-
+import AuthContext from "@/context/AuthContext";
+import useCloudTask from "@/context/useCloudTask";
 import Task from "@/core/Task";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 export default function useTasks(){
+    
+    const[carregando, setCarregando] = useState(false)
+    const{usuario} = useContext(AuthContext)
+    const{addCloudTask} = useCloudTask()
+
     const[tasks, setTasks] = useState<any>([])
+
+    const[allTasks, SetAllTaks] = useState()
 
     useEffect(()=>{
         
@@ -16,37 +23,28 @@ export default function useTasks(){
     },[])
 
 
-    function setLocalTask(task: Task) {
-        const taskObj = task.toObject();
-    
-        // Obter as tasks do localStorage, ou iniciar como um array vazio se for nulo
-        const localS = localStorage.getItem('tasks');
+   
+    function addTask(task: Task) { 
+
+        setCarregando(true)
+
+        const taskObj = task.toObject()
         
-        const tasks = localS ? JSON.parse(localS) : [];
-    
-        // Verifica se já existe uma task com o mesmo id
-        const taskIndex = tasks.findIndex((t: any) => t.id === taskObj.id);
-    
-        if (taskIndex !== -1) {
-            // Se já existir, atualiza a task com os novos valores
-            tasks[taskIndex] = {
-                ...tasks[taskIndex],
-                description: taskObj.description,
-                date: taskObj.date,
-                type: taskObj.type
-            };
-        } else {
-            // Se não existir, adiciona uma nova task
-            tasks.push(taskObj);
-        }
-    
-        // Atualiza o localStorage com o novo array de tasks
-        localStorage.setItem('tasks', JSON.stringify(tasks));
+        if(usuario){
+            addCloudTask(taskObj)
+        } 
+
+
+        const updatedTasks = [...tasks, taskObj]
+        setTasks(updatedTasks)
+
+        localStorage.setItem('tasks', JSON.stringify(updatedTasks))
+
+        setCarregando(false)
     }
-    
 
     function deleteTask(id: number){
-                
+        setCarregando(true)
 
                 const tasksLocal = localStorage.getItem('tasks')
 
@@ -58,13 +56,11 @@ export default function useTasks(){
                     
             
                     localStorage.setItem('tasks', JSON.stringify(newTask))
-                    
-             
-                    window.location.reload()
+                    setTasks(newTask)
                 }
 
         
-
+        setCarregando(false)
     }
 
 
@@ -85,6 +81,8 @@ export default function useTasks(){
 
     function sortBy(mode: string){
 
+        setCarregando(true)
+
         if(mode == 'asc'){
             localStorage.setItem('sort', 'asc')
 
@@ -102,7 +100,7 @@ export default function useTasks(){
 
             localStorage.setItem('tasks', JSON.stringify(sorted));
 
-            window.location.reload()
+            
 
         } else{
             localStorage.setItem('sort', 'dec')
@@ -121,21 +119,26 @@ export default function useTasks(){
 
             localStorage.setItem('tasks', JSON.stringify(sorted));
 
-            window.location.reload()
+            
 
                     
         }
+
+        setCarregando(false)
 
     }
 
 
     return {
         tasks,
-        setLocalTask,
+        allTasks,
+        sortbyActive,
+        carregando,
+
+        addTask,
         checkOrUncheck,
         deleteTask,
         sortBy,
-        sortbyActive
         
        
     }
