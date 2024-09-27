@@ -1,27 +1,30 @@
-
-import useTasks from "@/hooks/useTask";
 import { arrowDown } from "../../icons";
 import { Tasks } from "../Tasks";
 import { useEffect, useState } from "react";
 import { Title } from "@/components/Title";
-import Button from "@/components/Button";
-import useCloudTask from "@/context/useCloudTask";
+import useCloudTask from "@/hooks/useCloudTask";
+import Task from "@/core/Task";
 
 
 
 
 interface HomeProps{
-    editarTask: (id: any)=>void
+    taskToEdit: (task:Task)=>void
 }
   
 
 export default function Home(props: HomeProps){
 
-    const{addCloudTask} = useCloudTask()
-
-    const{ sortBy } = useTasks()
+    const{carregando} = useCloudTask()
 
     const[localSort, setLocalSort] = useState<string | null>('asc')
+
+    // elevar dado para o Layout
+    function taskToEdit(task: Task){
+        console.log('Home');
+        
+        props.taskToEdit(task)
+    }
 
     useEffect(()=>{
       const item = localStorage.getItem('sort')
@@ -29,12 +32,11 @@ export default function Home(props: HomeProps){
         
     },[])
 
-    function editarTasks(id: any){
-        props.editarTask(id)
+
+    function sortBy(tipo: any){
+        console.log('');
         
     }
-    
-
 
 
     return (
@@ -59,7 +61,12 @@ export default function Home(props: HomeProps){
 
             
                     <div className="mt-10 w-full">
-                        <Tasks filter="all" editarTasks={editarTasks}/>
+                        {carregando ? (
+                            <div>aguarde...</div>
+                        ):(
+
+                        <Tasks filter="all" taskToEdit={taskToEdit}/>
+                        )}
                     </div>
                
             </main>

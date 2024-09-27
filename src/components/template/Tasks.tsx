@@ -1,41 +1,23 @@
 'use client'
 
-import useTasks from "@/hooks/useTask"
 import { checkIcon, educationIcon, elipsisVerticalIcon, financeIcon, healthIcon, personalIcon, xIcon } from "../icons"
-import { useEffect, useState } from "react";
-
+import { useContext } from "react";
+import { TaskContext } from "@/context/TaskContext";
+import Task from "@/core/Task";
 
 
 interface TasksProps{
-    editarTasks?: (id: any)=>void
+
     filter: 'all' | 'completed'
+
+    taskToEdit: (task: Task) => void
    
 }
 
 export function Tasks(props: TasksProps){
 
+    const { allTask, deleteTask, checkOrUncheck } = useContext(TaskContext)
 
-    const { tasks, checkOrUncheck, deleteTask, carregando } = useTasks();
-    
-    const[local, setLocal] = useState([])
- 
-    function taskDelete(taskId: any) {
-        // setTranslateTaskId(taskId);
-        deleteTask(taskId);
-    
-    }  
-
-
-    function editarTasks(id: number){
-
-        props.editarTasks && props.editarTasks(id)
-
-    }
-
-
-    useEffect(()=>{
-        setLocal(tasks)
-    },[tasks])
 
     function typeSelect(type: string) {
         switch (type) {
@@ -52,6 +34,12 @@ export function Tasks(props: TasksProps){
         }
     }
 
+    function editTask(task: Task){
+        
+        props.taskToEdit(task)
+        
+    }
+
 
     function renderTasks() {
         
@@ -59,7 +47,7 @@ export function Tasks(props: TasksProps){
 
             
             
-                return local
+                return allTask && allTask
                     .filter((item:any) => item.completed == mode)
                     .map((task:any) => (
                         <div key={task.id}>
@@ -74,11 +62,11 @@ export function Tasks(props: TasksProps){
                             <div className="flex items-center">
     
                                 {task.completed === true ? (
-                                    <span onClick={() => checkOrUncheck(task.id)} className="text-red-600 cursor-pointer active:scale-110">
+                                    <span onClick={() => checkOrUncheck?.(task.id)} className="text-red-600 cursor-pointer active:scale-110">
                                         {xIcon}
                                     </span>
                                 ) : (
-                                    <span onClick={() => checkOrUncheck(task.id)} className="text-green-600 cursor-pointer active:scale-110">
+                                    <span onClick={() => checkOrUncheck?.(task.id)} className="text-green-600 cursor-pointer active:scale-110">
                                         {checkIcon}
                                     </span>
                                 )}
@@ -92,12 +80,12 @@ export function Tasks(props: TasksProps){
     
                                         {mode === false ? (
                                             <button className="bg-branco-cinzinha text-base hover:bg-azul-escuro w-full hover:text-white rounded-md p-2"
-                                            onClick={()=> editarTasks(task.id)}>
+                                            onClick={() => editTask(task)}>
                                                 <a><span>Edit</span></a>
                                             </button>
                                         ):''}
                                        
-                                        <button className="bg-branco-cinzinha text-base hover:bg-red-700 w-full hover:text-white rounded-md p-2" onClick={() => taskDelete(task.id)}>
+                                        <button className="bg-branco-cinzinha text-base hover:bg-red-700 w-full hover:text-white rounded-md p-2" onClick={() => deleteTask?.(task.id)}>
                                             <a><span>Delete</span></a>
                                         </button>
                                     </ul>
@@ -114,16 +102,10 @@ export function Tasks(props: TasksProps){
 
     return (
         <div className="taskContainer flex flex-col gap-5">
-
-            {carregando ? (
-                <div className="flex justify-center items-center">
-                    Carregando...
-                </div>
-            ): (
                 
-               local && renderTasks()
+               { renderTasks()}
 
-            )}
+          
         </div>
     );
 }

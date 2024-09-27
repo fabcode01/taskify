@@ -8,7 +8,7 @@ interface InputProps{
     className?: string
     changeType?: () => void
     onChange: (newValue: any) => void
-    value?: string
+    value?: string | number | any
     required?: boolean
     
    

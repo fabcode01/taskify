@@ -3,7 +3,7 @@
 import { airplaneIcon, googleIcon } from "./icons"
 import Input from "./Input"
 import Button from "./Button"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import AuthContext from "@/context/AuthContext"
 
 
@@ -26,6 +26,7 @@ export function Form(props: FormProps){
         
     }
 
+   
 
 
     return (

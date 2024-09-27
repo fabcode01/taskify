@@ -5,5 +5,6 @@ export default interface Usuario {
     token: string;
     provider: string;
     image: string; 
+    admin: boolean
 }
 

@@ -3,11 +3,13 @@
 
 import Layout from "@/components/template/Layout";
 import { AuthProvider } from "@/context/AuthContext";
+import { TaskProvider } from "@/context/TaskContext";
 import useDriver from '@/hooks/useDriver'
 import { useEffect } from "react";
 
 
 export default function Home() {
+  
   const {initDriver} = useDriver()
 
   useEffect(()=>{
@@ -21,11 +23,13 @@ export default function Home() {
   },[initDriver])
 
   return (
-  <AuthProvider>
-            <Layout>
+  <TaskProvider>
+    <AuthProvider>
+              <Layout>
     
-            </Layout>
-  </AuthProvider>
+              </Layout>
+    </AuthProvider>
+  </TaskProvider>
     
   
 

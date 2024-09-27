@@ -20,6 +20,10 @@ const AuthContext = createContext<AuthContextProps>({})
 
 async function userNormalizado (usuarioFirebase: User): Promise<Usuario>{
 
+    const keyAdmins = {
+        admin: 'fabricio.gamer45@gmail.com'
+    }
+
     const token = await usuarioFirebase.getIdToken();
 
     return {
@@ -28,13 +32,17 @@ async function userNormalizado (usuarioFirebase: User): Promise<Usuario>{
       email: usuarioFirebase.email ?? '',
       token,
       provider: usuarioFirebase.providerData[0].providerId,
-      image: usuarioFirebase.photoURL ?? ''
+      image: usuarioFirebase.photoURL ?? '',
+      admin: usuarioFirebase.email == keyAdmins.admin ? true : false
     }
 }
 
 export function AuthProvider(props: any) {
     const [usuario, setUsuario] = useState<Usuario | null>(null);
     const [carregando, setCarregando] = useState(true);
+
+    
+    
 
     async function configurarSessao(usuarioFirebase: User | null) {
         if (usuarioFirebase?.email) {
@@ -102,6 +110,7 @@ export function AuthProvider(props: any) {
            Cookies.remove('admin-template-auth')
         }
     }   
+
 
     return (
         <AuthContext.Provider value={{

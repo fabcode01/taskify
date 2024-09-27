@@ -1,12 +1,12 @@
 'use client'
 
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import Button from "./Button"
-import { airplaneIcon, arrowDown } from "./icons"
+import { airplaneIcon } from "./icons"
 import Input from "./Input"
 import Error from "./Error"
-import useTasks from "@/hooks/useTask"
 import Task from "@/core/Task"
+import { TaskContext } from "@/context/TaskContext"
 
 
 
@@ -24,16 +24,14 @@ export function FormTask(props: FormTask){
 
 
     const[description, setDescription] = useState('')
-    const[id, setId] = useState(0)
-    const[date, setDate] = useState('')
+    const[id, setId] = useState<string | number> (0)
+    const[date, setDate] = useState<string | number>('')
     const[type, setType] = useState('Finance')
     const[error, setError] = useState('')
 
-    const { addTask } = useTasks()
+    const{addTask} = useContext(TaskContext)
 
     function newTask(){
-
-        
 
         if(!type || !date ||  !description){
             setError('Some fields are missing.')
@@ -44,13 +42,27 @@ export function FormTask(props: FormTask){
             
             const task = new Task(id, type, description, date, false)
             
-            addTask(task)
+            addTask && addTask(task)
 
             props.closeModal && props.closeModal()
 
         }
 
     }
+
+
+    useEffect(()=>{
+        const task:Task = props.taskToEdit
+        
+        setId(task?.id)
+        setDate(task?.date)
+        setDescription(task?.description)
+        setType(task?.type)
+
+       
+        
+    },[props.taskToEdit])
+
 
 
     useEffect(()=>{
