@@ -10,7 +10,7 @@ interface TasksProps{
 
     filter: 'all' | 'completed'
 
-    taskToEdit: (task: Task) => void
+    taskToEdit?: (task: Task) => void
    
 }
 
@@ -36,7 +36,7 @@ export function Tasks(props: TasksProps){
 
     function editTask(task: Task){
         
-        props.taskToEdit(task)
+        props.taskToEdit && props.taskToEdit(task)
         
     }
 

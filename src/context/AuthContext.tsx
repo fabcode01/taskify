@@ -99,6 +99,7 @@ export function AuthProvider(props: any) {
     }else{
         setCarregando(false)
     }
+    
  },[])
 
     function gerenciarCookie(logado: boolean){

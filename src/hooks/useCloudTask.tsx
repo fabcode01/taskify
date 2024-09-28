@@ -1,30 +1,32 @@
 
-import{setDoc, getFirestore, addDoc, collection, query, where, getDocs, DocumentData} from 'firebase/firestore'
+import{setDoc, getFirestore, addDoc, collection, query, getDocs, deleteDoc, doc} from 'firebase/firestore'
 
 import { useState } from 'react'
 
 
 
-export default function useCloudTask(){
+export default function useCloud(docColletion: string){
 
     const[carregando, setCarregando] = useState(false)
 
     const db = getFirestore()
 
-    async function addCloudTask(task: any){
-        console.log(task);
+    async function addCloud(data: any){
+        
         
         try {
 
             setCarregando(true)
 
-            const docRef = await addDoc(collection(db, 'tasks'),{
-               task
+            const docRef = await addDoc(collection(db, docColletion),{
+               data
                
             })
     
-            
-            await setDoc(docRef, {id: docRef.id}, {merge: true})
+            await setDoc(docRef, {
+                id: docRef.id,
+                data
+            })
         }finally {
             setCarregando(false)
         }
@@ -33,11 +35,12 @@ export default function useCloudTask(){
     }
 
 
-    async function getCloudTasks(){
+    async function getCloud(docColletion: string){
 
         try {
             setCarregando(true)
-            const q = query(collection(db, 'tasks'))
+
+            const q = query(collection(db, docColletion))
 
             const querySnapshot = await getDocs(q)
 
@@ -58,14 +61,30 @@ export default function useCloudTask(){
     }
 
 
+    async function deleteCloud(docColletion: string, update: string | number){
+        console.log(update);
+
+        const docRef = doc(db, docColletion, `${update}`)
+        
+        try{
+            setCarregando(true)
+            await deleteDoc(docRef)      
+
+        }finally{
+            setCarregando(false)
+        }
+    }
+
+
 
 
     
 
     return {
-        addCloudTask,
+        addCloud,
+        getCloud,
+        deleteCloud,
         carregando,
-        getCloudTasks
     }
 }
 

@@ -15,7 +15,7 @@ interface HomeProps{
 
 export default function Home(props: HomeProps){
 
-    const{carregando} = useCloudTask()
+    const{carregando} = useCloudTask('tasks')
 
     const[localSort, setLocalSort] = useState<string | null>('asc')
 
