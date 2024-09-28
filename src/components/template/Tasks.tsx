@@ -8,7 +8,7 @@ import Task from "@/core/Task";
 
 interface TasksProps{
 
-    filter: 'all' | 'completed'
+    filter?: 'all' | 'completed'
 
     taskToEdit?: (task: Task) => void
    
