@@ -27,7 +27,7 @@ export default function Settings() {
 
 
     return (
-        <div className="flex flex-col mt-8 p-5">
+        <div className="flex flex-col mt-5 p-5">
             <Title title="Settings" />
 
                 <Hero title="Language" description="App language">

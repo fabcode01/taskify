@@ -26,7 +26,7 @@ export function FormTask(props: FormTask){
     const[description, setDescription] = useState('')
     const[id, setId] = useState<string | number> (0)
     const[date, setDate] = useState<string | number>('')
-    const[type, setType] = useState('Finance')
+    const[type, setType] = useState('')
     const[error, setError] = useState('')
 
     const{addTask} = useContext(TaskContext)
@@ -85,7 +85,7 @@ export function FormTask(props: FormTask){
             <div className="flex flex-col items-center">
                
             <select value={type} required onChange={e => setType(e.target.value)} className="select w-2/3 border-2 border-black mt-5 bg-white rounded-lg focus:outline-none focus:border-black  bg-transparent">
-                    <option disabled selected>Choose type</option>
+                    <option selected disabled>Choose type</option>
                     <option>Finance</option>
                     <option>Personal</option>
                     <option>Education</option>
@@ -93,7 +93,7 @@ export function FormTask(props: FormTask){
             </select>
                 <Input value={description} required inputType="text" placeholder="Description" onChange={setDescription}/>
 
-                <Input value={date} inputType="date" onChange={setDate}/>
+                <Input  value={date} inputType="date" onChange={setDate}/>
 
                 <div className="flex">
                     
