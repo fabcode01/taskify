@@ -66,7 +66,7 @@ export default function Home(props: HomeProps){
                             <div>aguarde...</div>
                         ):(
 
-                        <Tasks filter="all" taskToEdit={taskToEdit}/>
+                        <Tasks imgTaskEmpy="empty_data.png" emptyText="No tasks found, add a new!" filter="all" taskToEdit={taskToEdit}/>
                         )}
                     </div>
                

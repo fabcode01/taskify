@@ -16,8 +16,8 @@ interface ButtonProps{
 
 export default function Button(props: ButtonProps){
     return (
-        <div className="flex mt-5 gap-2">
-            <button onClick={props.submit || props.onClick} className={`btn ${props.width ? props.width : 'w-32'} ${props.className} ${props.type}`} >{props.icon} {props.text}</button>
+        <div className="flex gap-2">
+            <button onClick={props.submit || props.onClick} className={`btn mt-5 ${props.width ? props.width : 'w-32'} ${props.className} ${props.type}`} >{props.icon} {props.text}</button>
         </div>
     )
 }

@@ -4,6 +4,7 @@ import { checkIcon, educationIcon, elipsisVerticalIcon, financeIcon, healthIcon,
 import { useContext } from "react";
 import { TaskContext } from "@/context/TaskContext";
 import Task from "@/core/Task";
+import Image from "next/image";
 
 
 interface TasksProps{
@@ -11,6 +12,12 @@ interface TasksProps{
     filter?: 'all' | 'completed'
 
     taskToEdit?: (task: Task) => void
+
+    emptyText: string
+
+    imgTaskEmpy: string
+
+    className?:string
    
 }
 
@@ -38,6 +45,16 @@ export function Tasks(props: TasksProps){
         
         props.taskToEdit && props.taskToEdit(task)
         
+    }
+
+
+    function renderEmptyTasks(){
+        return (
+            <div className="opacity-25 flex flex-col justify-center items-center gap-2 h-[200px] mt-10">
+              <Image className="opacity-40" width={250} height={0} src={`/images/${props.imgTaskEmpy}`} alt="empty"/>
+              <p>{props.emptyText}</p>
+            </div>
+        )
     }
 
 
@@ -102,10 +119,8 @@ export function Tasks(props: TasksProps){
 
     return (
         <div className="taskContainer flex flex-col gap-5">
-                
-               { renderTasks()}
-
-          
+                {props.filter == 'all' && allTask?.length === 0 ? renderEmptyTasks() : renderTasks()}
+                {props.filter == 'completed' && allTask?.filter(item => item.completed == true).length == 0 ? renderEmptyTasks() : ''}
         </div>
     );
 }

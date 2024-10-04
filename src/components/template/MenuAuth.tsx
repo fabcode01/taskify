@@ -32,8 +32,6 @@ export function MenuAuth(props: MenuLoginProps){
             <img src={usuario?.image} alt="usuario" className="w-20 h-20 rounded-full border"/>
             <h2 className="mt-3 text-lg font-semibold">Olá, {usuario?.nome}</h2>
 
-            
-                <Button text="Edit" icon={editIcon}  className="bg-slate-300"/>
                 <Button onClick={logout} icon={logoutIcon} text="logout" className="bg-red-700 text-white hover:bg-red-950"/>
             
         </div>
