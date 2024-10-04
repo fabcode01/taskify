@@ -15,7 +15,7 @@ interface FormTask{
     title?: string
     value?: any
     taskToEdit?: any
-    clearForm: string
+    clearForm: boolean
     closeModal?:  ()=>void
 
 }
@@ -51,6 +51,7 @@ export function FormTask(props: FormTask){
     }
 
 
+    // Setar valores para serem editados
     useEffect(()=>{
         const task:Task = props.taskToEdit
         
@@ -69,9 +70,9 @@ export function FormTask(props: FormTask){
         setError('')
     },[description, date, type])
 
-
+// Limpar Inputs FormTask ao fechar modal MenuTask 
     useEffect(()=>{
-        setId(Math.random())
+        setId('')
         setDate('')
         setDescription('')
     },[props.clearForm])
@@ -100,9 +101,6 @@ export function FormTask(props: FormTask){
                 </div>
 
                 <Error message={error}/>
-                
-                
-              
                 
             </div>
         </div>

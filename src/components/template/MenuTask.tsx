@@ -2,7 +2,7 @@
 
 import { Modal } from "../Modal"
 import { FormTask } from "../FormTask"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 interface MenuTask{
     showMenuTask: boolean 
@@ -13,15 +13,15 @@ interface MenuTask{
 
 export function MenuTask(props: MenuTask){
 
-    const[clearForm, setClearForm] = useState<''|'clear'>('')
+    const[clearForm, setClearForm] = useState<boolean>(false)
 
     function clearFormAndHidden(){
 
       props.hiddenMenuTask && props.hiddenMenuTask()
 
-      setClearForm('clear')
+      setClearForm(clearForm == true ? false : true)
     }
- 
+
 
     return (
       <Modal position="rodape" modalActive={props.showMenuTask} hiddenMenu={clearFormAndHidden} className="rounded-t-[43px]">

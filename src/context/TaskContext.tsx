@@ -30,7 +30,7 @@ export function TaskProvider(props: any){
 
     function addTask(task: Task){
         const taskObj = task.toObject()
-
+       
         const existingTaskIndex = allTask.findIndex((t: any) => t.id == taskObj.id);
         
         if (existingTaskIndex !== -1) {
@@ -42,6 +42,8 @@ export function TaskProvider(props: any){
             return;
         } else{
             // Adicionar nova task
+            taskObj.id = Math.random()
+            
             const updateTask = [...allTask, taskObj]
 
             setAllTask(updateTask)
