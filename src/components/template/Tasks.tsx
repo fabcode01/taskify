@@ -68,14 +68,21 @@ export function Tasks(props: TasksProps){
                     .filter((item:any) => item.completed == mode)
                     .map((task:any) => (
                         <div key={task.id}>
-                        <span className={`bg-branco-cinzinha p-3 rounded-lg ${task.completed === false ? 'bg-branco-cinzinha' : 'bg-green-200'}`}>{task.date}</span>
+
+                        <div className="relative -bottom-3 flex">
+                            <span className={`bg-azul-escuro p-3 rounded-lg text-white ${task.completed === false ? 'bg-azul-escuro' : 'bg-green-400'}`}>  {task.date}
+                            </span>
+                        </div>
+
                         <div key={task.id} className={
                             `relative duration-150 flex items-center justify-between
                             ${task.completed === false ? 'bg-branco-cinzinha' : 'bg-green-200'} p-6 rounded-md`
                         }>
                         
                             <span className="text-azul-clarinho">{typeSelect(task.type)}</span>
+                          
                             <span>{task.description}</span>
+                            
                             <div className="flex items-center">
     
                                 {task.completed === true ? (

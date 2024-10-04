@@ -22,10 +22,15 @@ export function MenuTask(props: MenuTask){
       setClearForm(clearForm == true ? false : true)
     }
 
+    function hiddenAndClear(){
+      props.hiddenMenuTask && props.hiddenMenuTask() 
+      setClearForm(clearForm == true ? false : true)
+    }
+
 
     return (
       <Modal position="rodape" modalActive={props.showMenuTask} hiddenMenu={clearFormAndHidden} className="rounded-t-[43px]">
-           <FormTask closeModal={props.hiddenMenuTask} title="Add a new task" clearForm={clearForm} taskToEdit={props.taskToEdit}/>
+           <FormTask closeModal={hiddenAndClear} title="Add a new task" clearForm={clearForm} taskToEdit={props.taskToEdit}/>
            
       </Modal>
     )
