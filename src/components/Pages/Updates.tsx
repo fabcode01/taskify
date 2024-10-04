@@ -2,8 +2,9 @@ import Button from "@/components/Button"
 import Input from "@/components/Input"
 import { Title } from "@/components/Title"
 import AuthContext from "@/context/AuthContext"
-import Update from "@/core/Updates"
+import UpdatesProps from "@/core/Updates"
 import useCloud from "@/hooks/useCloudTask"
+import { Update } from "next/dist/build/swc"
 import { useContext, useEffect, useState } from "react"
 
 export default function Updates(){
@@ -13,7 +14,7 @@ export default function Updates(){
     const[updateTitle, setUpdateTitle] = useState('')
     const[updateText, setUpdateText] = useState('')
 
-    const[cloudUpdates, setCloudUpdates] = useState<Update[] | any>()
+    const[cloudUpdates, setCloudUpdates] = useState<UpdatesProps[] | any>()
 
     const{addCloud, carregando:loadingUpdate, getCloud, deleteCloud} = useCloud('updates')
 
@@ -43,7 +44,7 @@ export default function Updates(){
             const obj = {
                 id: item.id,
                 title: item.data.title,
-                text: item.data.text
+                description: item.data.text
             }
             return obj
             
@@ -91,12 +92,12 @@ export default function Updates(){
         return (
         <div className="pb-2 mt-10">
 
-            {cloudUpdates?.map((data: Update)=>(
+            {cloudUpdates?.map((data: UpdatesProps)=>(
 
                 <div key={data.id} className="mt-7 border-b-2 pb-4">
                      <h1 className="font-bold text-xl">{data.title}</h1>
 
-                     <p>{data.text}</p>
+                     <p>{data.description}</p>
 
                      <div className="flex justify-end">{usuario?.admin && <Button submit={() => deleteUpdate(data.id)} text="Delete" className="bg-red-600 text-white"/>}</div>
                 </div>

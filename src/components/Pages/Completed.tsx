@@ -1,6 +1,7 @@
 
-import { Tasks } from "../Tasks"
+
 import { Title } from "@/components/Title"
+import { Tasks } from "../template/Tasks"
 
 
 export default function Completed(){

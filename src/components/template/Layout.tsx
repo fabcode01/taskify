@@ -3,13 +3,12 @@
 import { useContext, useEffect, useState } from "react";
 import Nav, { Pages } from "./Nav";
 import Top from "./Top";
-import Home from "./Pages/Home";
-import Updates from "./Pages/Updates";
-import Completed from "./Pages/Completed";
-import Settings from "./Pages/Settings";
+import Home from "../Pages/Home";
+import Updates from "../Pages/Updates";
+import Completed from "../Pages/Completed";
+import Settings from "../Pages/Settings";
 import { MenuAuth } from "./MenuAuth";
 import { MenuTask } from "./MenuTask";
-import { TaskContext } from "@/context/TaskContext";
 import Task from "@/core/Task";
 import AuthContext from "@/context/AuthContext";
 import { logoTaskify } from "../icons";

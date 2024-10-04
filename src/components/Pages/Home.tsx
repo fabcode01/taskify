@@ -1,9 +1,10 @@
-import { arrowDown } from "../../icons";
-import { Tasks } from "../Tasks";
+import { arrowDown } from "../icons";
+
 import { useEffect, useState } from "react";
 import { Title } from "@/components/Title";
 import useCloudTask from "@/hooks/useCloudTask";
 import Task from "@/core/Task";
+import { Tasks } from "../template/Tasks";
 
 
 
