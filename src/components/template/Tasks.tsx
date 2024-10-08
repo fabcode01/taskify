@@ -13,7 +13,7 @@ interface TasksProps{
 
     taskToEdit?: (task: Task) => void
 
-    emptyText: string
+    emptyText: string | undefined
 
     imgTaskEmpy: string
 

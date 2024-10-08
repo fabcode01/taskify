@@ -3,6 +3,7 @@
 
 import Layout from "@/components/template/Layout";
 import { AuthProvider } from "@/context/AuthContext";
+import { LanguageProvider } from "@/context/LanguageContext";
 import { TaskProvider } from "@/context/TaskContext";
 import useDriver from '@/hooks/useDriver'
 import { useEffect } from "react";
@@ -23,13 +24,15 @@ export default function Home() {
   },[initDriver])
 
   return (
-  <TaskProvider>
-    <AuthProvider>
-              <Layout>
+  <LanguageProvider>
+    <TaskProvider>
+      <AuthProvider>
+                <Layout>
     
-              </Layout>
-    </AuthProvider>
-  </TaskProvider>
+                </Layout>
+      </AuthProvider>
+    </TaskProvider>
+  </LanguageProvider>
     
   
 

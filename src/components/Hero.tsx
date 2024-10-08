@@ -1,8 +1,8 @@
 
 
 interface HeroProps {
-    title: string
-    description: string
+    title: string | undefined
+    description: string | undefined
     children: any
     className?: string
 }

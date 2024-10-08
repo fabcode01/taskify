@@ -1,23 +1,24 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Hero } from "../Hero";
 import { Title } from "../Title";
 import { moonIcon, sunIcon } from "../icons";
 import Button from "../Button";
 import { Credit } from "../Credit";
-
-type Language = "English" | "Portuguese"
-type Theme = "Light" | "Dark"
-
+import { LanguageContext } from "@/context/LanguageContext";
+import { Portugues } from "@/data/Strings";
 
 export default function Settings() {
 
-    const [language, setLanguage] = useState<Language>("English")
+    const{currentLanguage, changeLanguage} = useContext(LanguageContext)
 
     const [theme, setTheme] = useState<Theme>("Light")
 
     const handleLanguageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setLanguage(e.target.checked ? 'Portuguese' : 'English')
-        console.log(language);
+        
+        if (changeLanguage) {
+            e.target.checked ? changeLanguage('English') : changeLanguage('Portuguese');
+        }
+        
     }
 
     const handleThemeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,28 +29,28 @@ export default function Settings() {
 
     return (
         <div className="flex flex-col mt-5 p-5">
-            <Title title="Settings" />
+            <Title title={currentLanguage?.settings.title} />
 
-                <Hero title="Language" description="App language">
+                <Hero title={currentLanguage?.settings.Language.title} description={currentLanguage?.settings.Language.text}>
                     
                         <label className="flex items-center gap-2 label cursor-pointer">
-                            <span className="label-text font-semibold">PT-BR</span>
-                            <input defaultChecked={false} onChange={(e) => handleLanguageChange(e)} type="checkbox" className="toggle theme-controller bg-black hover:bg-azul-escuro" />
-                            <span className="label-text font-semibold">ENG</span>
+                            <span className="label-text font-semibold text-black ">PT-BR</span>
+                            <input defaultChecked={currentLanguage == Portugues ? false : true} onChange={(e) => handleLanguageChange(e)} type="checkbox" className="toggle theme-controller bg-azul-clarinho hover:bg-azul-clarinho" />
+                            <span className="label-text font-semibold text-black ">ENG</span>
                         </label>
                     
                 </Hero>
 
-                <Hero title="Theme" description="Change app theme">
+                <Hero title={currentLanguage?.settings.Theme.title} description={currentLanguage?.settings.Theme.text}>
                         <label className="flex items-center gap-2 label cursor-pointer">
-                            <span className="label-text font-semibold">{moonIcon}</span>
-                            <input defaultChecked={false} onChange={(e) => handleThemeChange(e)} type="checkbox" className="toggle theme-controller bg-black hover:bg-azul-escuro" />
-                            <span className="label-text font-semibold">{sunIcon}</span>
+                            <span className="text-black label-text font-semibold">{moonIcon}</span>
+                            <input defaultChecked={theme == 'Light' ? true : false} onChange={(e) => handleThemeChange(e)} type="checkbox" className="toggle theme-controller bg-azul-clarinho hover:bg-azul-clarinho"/>
+                            <span className="text-black label-text font-semibold">{sunIcon}</span>
                         </label>
                 </Hero>
 
-                <Hero title="Clear" description="Clear all data">
-                    <Button text="Clear" className="mt-0 bg-red-600 text-white font-semibold hover:bg-red-800"/>
+                <Hero title={currentLanguage?.settings.Clear.title} description={currentLanguage?.settings.Clear.text}>
+                    <Button text={currentLanguage?.settings.Clear.btn} className="mt-0 bg-red-600 text-white font-semibold hover:bg-red-800"/>
                 </Hero>
 
                 <div className="mt-6">
