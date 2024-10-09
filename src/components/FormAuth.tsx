@@ -5,16 +5,19 @@ import Input from "./Input"
 import Button from "./Button"
 import { useContext, useEffect, useState } from "react"
 import AuthContext from "@/context/AuthContext"
+import { LanguageContext } from "@/context/LanguageContext"
 
 
 
 interface FormProps{
-    title: string
+    title: string | undefined
     AuthMode: string
     changeMode: () => void
 }
 
 export function Form(props: FormProps){
+
+    const{currentLanguage} = useContext(LanguageContext)
 
     const{loginGoogle} = useContext(AuthContext)
     
@@ -33,10 +36,12 @@ export function Form(props: FormProps){
         <div>
             <h1 className="font-bold text-2xl">{props.title}</h1>
 
+            
+
             <div className="flex flex-col items-center">
 
                 <Input inputType="text" placeholder="yourEmail@exemple.com" onChange={setEmail}/>
-                <Input inputType="password" placeholder="Password" onChange={setPassword}/>
+                <Input inputType="password" placeholder={currentLanguage?.AuthModal.passwordPlaceholder} onChange={setPassword}/>
 
                 <div className="flex gap-2">
                     
@@ -47,9 +52,9 @@ export function Form(props: FormProps){
 
 
                 <div className="flex mt-5 gap-2">
-                <p>{props.AuthMode === 'login' ? 'Do not have an account?' : 'Do you have an account?'}</p>
+                <p>{props.AuthMode === 'login' ? currentLanguage?.AuthModal.dontHaveAccount : currentLanguage?.AuthModal.haveAccount}</p>
 
-                <p onClick={props.changeMode} className="text-azul-medio font-bold cursor-pointer">{props.AuthMode === 'login' ? 'Register' : 'Login'}</p>
+                <p onClick={props.changeMode} className="text-azul-medio font-bold cursor-pointer">{props.AuthMode === 'login' ? currentLanguage?.AuthModal.titleRegister : currentLanguage?.AuthModal.titleLogin}</p>
                </div>
                 
             </div>

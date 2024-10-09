@@ -2,6 +2,7 @@ import Button from "@/components/Button"
 import Input from "@/components/Input"
 import { Title } from "@/components/Title"
 import AuthContext from "@/context/AuthContext"
+import { LanguageContext } from "@/context/LanguageContext"
 import UpdatesProps from "@/core/Updates"
 import useCloud from "@/hooks/useCloudTask"
 import { Update } from "next/dist/build/swc"
@@ -9,11 +10,14 @@ import { useContext, useEffect, useState } from "react"
 
 export default function Updates(){
 
+    // Contexts
+    const{currentLanguage} = useContext(LanguageContext)
     const{usuario} = useContext(AuthContext)
+
+    // Fim Contexts
 
     const[updateTitle, setUpdateTitle] = useState('')
     const[updateText, setUpdateText] = useState('')
-
     const[cloudUpdates, setCloudUpdates] = useState<UpdatesProps[] | any>()
 
     const{addCloud, carregando:loadingUpdate, getCloud, deleteCloud} = useCloud('updates')
@@ -127,7 +131,7 @@ export default function Updates(){
 
 
                     <div className="w-full">
-                        <Title title="Last Updates"/>
+                        <Title title={currentLanguage?.updates.title}/>
                         {updates()}
                     </div>
             </div>

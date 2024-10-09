@@ -1,7 +1,8 @@
 'use client'
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { addIcon, bellIcon, clockIcon, completedIcon, homeIcon, settingsIcon } from "../icons";
+import { LanguageContext } from "@/context/LanguageContext";
 
 export type Pages = 'home' | 'completed' | 'updates' | 'settings'
 
@@ -15,6 +16,9 @@ interface NavProps{
 
 
 export default function Nav(props: NavProps){
+
+    const{currentLanguage} = useContext(LanguageContext)
+
     const[iconSize] = useState(props.iconSize)
 
     const[showNav, setShowNav] = useState('bottom-0')
@@ -55,12 +59,12 @@ export default function Nav(props: NavProps){
                 
                 <div onClick={() => props.changePage('home')} className={`${items} text-azul-clarinho ${props.currentPage === 'home' ? 'text-azul-claro' : ''}`}>
                     <li>{homeIcon(iconSize)}</li>
-                    <p>Home</p>
+                    <p>{currentLanguage?.nav.home}</p>
                 </div>
 
                 <div onClick={() => props.changePage('completed')}  className={`${items} text-azul-clarinho ${props.currentPage === 'completed' ? 'text-azul-claro' : ''}`}>
                     <li>{completedIcon(iconSize)}</li>
-                    <p>Completed</p>
+                    <p>{currentLanguage?.nav.completed}</p>
                 </div>
 
                 <div  onClick={props.MenuTaskShow} className={`
@@ -73,12 +77,12 @@ export default function Nav(props: NavProps){
 
                 <div onClick={() => props.changePage('updates')} className={`${items} text-azul-clarinho ${props.currentPage === 'updates' ? 'text-azul-claro' : ''}`}>
                     <li>{bellIcon(iconSize)}</li>
-                    <p>Updates</p>
+                    <p>{currentLanguage?.nav.updates}</p>
                 </div>
 
                 <div onClick={() => props.changePage('settings')} className={`${items} text-azul-clarinho ${props.currentPage === 'settings' ? 'text-azul-claro' : ''}`}>
                     <li>{settingsIcon(iconSize)}</li>
-                    <p>Settings</p>
+                    <p>{currentLanguage?.nav.settings}</p>
                 </div>
             </ul>
         </nav>

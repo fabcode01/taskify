@@ -40,10 +40,6 @@ export const English = {
 
     },
 
-   
-
-    
-
     nav: {
         home: 'Home',
         completed: 'Completed',
@@ -52,9 +48,34 @@ export const English = {
     },
 
 
-    loading: 'Loading'
+    AuthModal:  {
+        titleLogin: 'Login',
+        titleRegister: 'Register',
+        passwordPlaceholder: 'password',
+        dontHaveAccount: 'Dont have an account?',
+        haveAccount: 'Do you have an account?'
+    },
 
+    TaskModal:  {
+        titleLogin: 'Add a new task',
+        Categorys: {
+            default: 'Choose type',
+            finance: 'Finance',
+            personal: 'Personal',
+            education: 'Education',
+            health: 'Health'
+    
+        },
+        
+        descriptionPlaceholder: 'I have to do...',
+        
+    },
 
+    loading: 'Loading',
+
+    errorTask: 'Some fields are missing. Try again',
+
+    credits: 'Development by'
 
 
 }
@@ -104,6 +125,29 @@ export const Portugues = {
     },
 
    
+    AuthModal:  {
+        titleLogin: 'Entrar',
+        titleRegister: 'Registre',
+        passwordPlaceholder: 'senha',
+        dontHaveAccount: 'Não tem uma conta?',
+        haveAccount: 'Já tem uma conta?'
+    },
+
+
+    TaskModal:  {
+        titleLogin: 'Adicione uma tarefa',
+        Categorys: {
+            default: 'Escolha um tipo',
+            finance: 'Finança',
+            personal: 'Pessoal',
+            education: 'Educação',
+            health: 'Saúde'
+    
+        },
+        
+        descriptionPlaceholder: 'Eu tenho que fazer...',
+        
+    },
 
     
 
@@ -115,7 +159,11 @@ export const Portugues = {
     },
 
 
-    loading: 'Aguarde...'
+    loading: 'Aguarde...',
+
+    errorTask: 'Faltam dados. Tente novamente.',
+
+    credits: 'Desenvolvido por'
 
 
 }

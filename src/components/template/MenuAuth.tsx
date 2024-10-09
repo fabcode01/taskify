@@ -6,6 +6,7 @@ import { Modal } from "../Modal"
 import AuthContext from "@/context/AuthContext"
 import Button from "../Button"
 import { editIcon, logoTaskify, logoutIcon } from "../icons"
+import { LanguageContext } from "@/context/LanguageContext"
 
 interface MenuLoginProps{
     showMenuAuth: boolean
@@ -14,6 +15,7 @@ interface MenuLoginProps{
 
 export function MenuAuth(props: MenuLoginProps){
 
+    const{currentLanguage} = useContext(LanguageContext)
     const{usuario, logout, carregando} = useContext(AuthContext)
 
     const[AuthMode, setAuthMode] = useState<'login' | 'register'>('login')
@@ -51,7 +53,7 @@ export function MenuAuth(props: MenuLoginProps){
                 usuario ? (
                     renderProfile()
                 ) : (
-                    <Form title={AuthMode === 'login' ? 'Login' : 'Register'} AuthMode={AuthMode} changeMode={switchAuthMode}/>
+                    <Form title={AuthMode === 'login' ? currentLanguage?.AuthModal.titleLogin : currentLanguage?.AuthModal.titleRegister} AuthMode={AuthMode} changeMode={switchAuthMode}/>
                 )
             )}
 
