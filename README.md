@@ -2,7 +2,7 @@
 # Taskify
 
 
-Taskify – Gerencie suas tarefas.!
+Taskify – Gerencie suas tarefas!
 
 # Funcionalidades
 
