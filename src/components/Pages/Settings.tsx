@@ -5,7 +5,7 @@ import { moonIcon, sunIcon } from "../icons";
 import Button from "../Button";
 import { Credit } from "../Credit";
 import { LanguageContext } from "@/context/LanguageContext";
-import { Portugues } from "@/data/strings";
+import { Portugues } from "../../data/strings";
 
 export default function Settings() {
 
