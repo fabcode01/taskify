@@ -2,8 +2,6 @@ import { createContext, useState, useEffect } from "react";
 
 import {English, Portugues} from '../data/strings' 
 
-
-
 interface LanguageContextProps {
     currentLanguage?: typeof English | typeof Portugues
     changeLanguage?: (language: Language) => void 
