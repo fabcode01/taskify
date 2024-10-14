@@ -12,14 +12,15 @@ import { MenuTask } from "./MenuTask";
 import Task from "@/core/Task";
 import AuthContext from "@/context/AuthContext";
 import { logoTaskify } from "../icons";
+import { LanguageContext } from "@/context/LanguageContext";
 
-interface LayoutProps {
-  children?: any;
-}
+interface LayoutProps {}
 
 export default function Layout(props: LayoutProps) {
 
   const{carregando:loadingAuth} = useContext(AuthContext)
+
+  const{currentTheme: theme} = useContext(LanguageContext)
 
 
   const [currentPage, setCurrentPage] = useState<Pages | string>("");
@@ -84,31 +85,29 @@ export default function Layout(props: LayoutProps) {
       
   }
 
-
   
   return !loadingAuth ? (
-    <div className="layout text-black">
-    <MenuTask
-      showMenuTask={showMenuTask}
-      hiddenMenuTask={MenuTaskHidden}
-      taskToEdit={editData}
-    />
-
-    <MenuAuth
-      showMenuAuth={showMenuAuth}
-      hiddenMenuAuth={MenuAuthShow}
-    />
-
-    <Top showMenuAuth={MenuAuthShow} />
-    {renderizarPage()}
-
-    <Nav
-      iconSize={8}
-      currentPage={currentPage}
-      changePage={changePage}
-      MenuTaskShow={MenuTaskHidden}
-    />
-  </div>
+    <div className={theme}>
+      <div className="layout text-black dark:bg-azul-escuro h-screen">
+      <MenuTask
+        showMenuTask={showMenuTask}
+        hiddenMenuTask={MenuTaskHidden}
+        taskToEdit={editData}
+      />
+      <MenuAuth
+        showMenuAuth={showMenuAuth}
+        hiddenMenuAuth={MenuAuthShow}
+      />
+      <Top showMenuAuth={MenuAuthShow} />
+      {renderizarPage()}
+      <Nav
+        iconSize={8}
+        currentPage={currentPage}
+        changePage={changePage}
+        MenuTaskShow={MenuTaskHidden}
+      />
+        </div>
+    </div>
          
       
   ) : (

@@ -11,9 +11,9 @@ export default function Top(props: TopProps){
     const{usuario} = useContext(AuthContext)
 
     return (
-        <div className='flex justify-between items-center p-5'>
+        <div className='flex justify-between items-center p-5 '>
 
-            <div className='flex items-center gap-1'>
+            <div className='flex items-center gap-1 dark:bg-black p-2 rounded-lg'>
 
                 <span>{logoTaskify(55)}</span>
 

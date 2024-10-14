@@ -99,11 +99,11 @@ export default function Updates(){
             {cloudUpdates?.map((data: UpdatesProps)=>(
 
                 <div key={data.id} className="mt-7 border-b-2 pb-4">
-                     <h1 className="font-bold text-xl">{data.title}</h1>
+                     <h1 className="font-bold text-xl dark:text-gray-400">{data.title}</h1>
 
-                     <p>{data.description}</p>
+                     <p className="dark:text-gray-500">{data.description}</p>
 
-                     <div className="flex justify-end">{usuario?.admin && <Button submit={() => deleteUpdate(data.id)} text="Delete" className="bg-red-600 text-white"/>}</div>
+                     <div className="flex justify-end">{usuario?.admin && <Button submit={() => deleteUpdate(data.id)} text="Delete" className="bg-red-600 text-white "/>}</div>
                 </div>
                 
             ))}
@@ -131,7 +131,7 @@ export default function Updates(){
 
 
                     <div className="w-full">
-                        <Title title={currentLanguage?.updates.title}/>
+                        <Title className="dark:text-azul-clarinho" title={currentLanguage?.updates.title}/>
                         {updates()}
                     </div>
             </div>

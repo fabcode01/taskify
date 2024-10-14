@@ -7,11 +7,12 @@ import { Credit } from "../Credit";
 import { LanguageContext } from "@/context/LanguageContext";
 import { Portugues } from "../../../public/data/strings";
 
+
 export default function Settings() {
 
-    const{currentLanguage, changeLanguage} = useContext(LanguageContext)
+    const{currentLanguage, changeLanguage, currentTheme: theme, changeTheme} = useContext(LanguageContext)
 
-    const [theme, setTheme] = useState<Theme>("Light")
+
 
     const handleLanguageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         
@@ -22,14 +23,18 @@ export default function Settings() {
     }
 
     const handleThemeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setTheme(e.target.checked ? 'Dark' : 'Light')
-        console.log(theme);
+
+        if(changeTheme){
+            changeTheme(e.target.checked ? 'light' : 'dark')
+        }
+        
+
     }
 
 
     return (
         <div className="flex flex-col mt-5 p-5">
-            <Title title={currentLanguage?.settings.title} />
+            <Title className="dark:text-azul-clarinho" title={currentLanguage?.settings.title} />
 
                 <Hero title={currentLanguage?.settings.Language.title} description={currentLanguage?.settings.Language.text}>
                     
@@ -44,7 +49,7 @@ export default function Settings() {
                 <Hero title={currentLanguage?.settings.Theme.title} description={currentLanguage?.settings.Theme.text}>
                         <label className="flex items-center gap-2 label cursor-pointer">
                             <span className="text-black label-text font-semibold">{moonIcon}</span>
-                            <input defaultChecked={theme == 'Light' ? true : false} onChange={(e) => handleThemeChange(e)} type="checkbox" className="toggle theme-controller bg-azul-clarinho hover:bg-azul-clarinho"/>
+                            <input defaultChecked={theme == 'light' ? true : false} onChange={(e) => handleThemeChange(e)} type="checkbox" className="toggle theme-controller bg-azul-clarinho hover:bg-azul-clarinho"/>
                             <span className="text-black label-text font-semibold">{sunIcon}</span>
                         </label>
                 </Hero>

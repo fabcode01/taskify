@@ -46,13 +46,13 @@ export default function Home(props: HomeProps){
 
 
     return (
-        <main className="flex flex-col items-center mt-14 p-5">
+        <main className="flex flex-col items-center mt-14 p-5 ">
 
             
 
-            <div className="flex w-full items-center justify-between">
+            <div className="flex w-full items-center justify-between ">
 
-                <Title title={currentLanguage?.home.title}/>
+                <Title className="dark:text-azul-clarinho" title={currentLanguage?.home.title}/>
 
                 <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn flex items-center bg-azul-escuro text-azul-clarinho hover:bg-azul-medio">{currentLanguage?.home.sortby} {arrowDown}</div>

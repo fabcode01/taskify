@@ -51,8 +51,8 @@ export function Tasks(props: TasksProps){
     function renderEmptyTasks(){
         return (
             <div className="opacity-25 flex flex-col justify-center items-center gap-2 h-[200px] mt-10">
-              <Image className="opacity-40" width={250} height={0} src={`/images/${props.imgTaskEmpy}`} alt="empty"/>
-              <p>{props.emptyText}</p>
+              <Image width={250} height={0} src={`/images/${props.imgTaskEmpy}`} alt="empty"/>
+              <p className="dark:text-azul-clarinho">{props.emptyText}</p>
             </div>
         )
     }

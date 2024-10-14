@@ -1,1 +1,1 @@
-type Theme = "Light" | "Dark"
+type Theme = "light" | "dark"

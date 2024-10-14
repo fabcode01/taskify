@@ -4,7 +4,9 @@ import {English, Portugues} from '../../public/data/strings'
 
 interface LanguageContextProps {
     currentLanguage?: typeof English | typeof Portugues
-    changeLanguage?: (language: Language) => void 
+    changeLanguage?: (language: Language) => void
+    currentTheme?: Theme 
+    changeTheme?: (theme: Theme) => void
 }
 
 export const LanguageContext = createContext<LanguageContextProps>({
@@ -34,10 +36,40 @@ export function LanguageProvider(props: any){
         }
     }
 
+
+
+
+
+
+    const [currentTheme, setCurrentTheme] = useState<Theme>();
+
+    useEffect(()=>{
+        const theme = localStorage.getItem('theme');
+        setCurrentTheme(theme == 'light' ? 'light' : 'dark')
+
+    },[])
+
+
+    function changeTheme(Theme: Theme){
+
+        if(Theme == 'light'){
+            setCurrentTheme('light')
+            localStorage.setItem('theme', 'light')
+        }
+        if(Theme == 'dark'){
+            setCurrentTheme('dark')
+            localStorage.setItem('theme', 'dark')
+        }
+    }
+
     return (
         <LanguageContext.Provider value={{ 
             currentLanguage, 
-            changeLanguage 
+            changeLanguage,
+            
+            currentTheme,
+            changeTheme
+
         }}>
             {props.children}
         </LanguageContext.Provider>
