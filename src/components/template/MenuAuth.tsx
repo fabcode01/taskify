@@ -5,8 +5,9 @@ import  {Form}  from "../FormAuth"
 import { Modal } from "../Modal"
 import AuthContext from "@/context/AuthContext"
 import Button from "../Button"
-import { editIcon, logoTaskify, logoutIcon } from "../icons"
+import { logoTaskify, logoutIcon } from "../icons"
 import { LanguageContext } from "@/context/LanguageContext"
+import Image from "next/image"
 
 interface MenuLoginProps{
     showMenuAuth: boolean
@@ -20,6 +21,8 @@ export function MenuAuth(props: MenuLoginProps){
 
     const[AuthMode, setAuthMode] = useState<'login' | 'register'>('login')
 
+    const userImg = usuario?.image ? usuario?.image : ''
+
     function switchAuthMode(){
         if(AuthMode === 'login'){
             setAuthMode('register')
@@ -31,7 +34,7 @@ export function MenuAuth(props: MenuLoginProps){
     function renderProfile(){
         return (
             <div className="flex flex-col items-center mt-5">
-            <img src={usuario?.image} alt="usuario" className="w-20 h-20 rounded-full border"/>
+            <Image width={80} height={80} src={userImg} alt='user' className='rounded-full'/>
             <h2 className="mt-3 text-lg font-semibold">Olá, {usuario?.nome}</h2>
 
                 <Button onClick={logout} icon={logoutIcon} text="logout" className="bg-red-700 text-white hover:bg-red-950"/>

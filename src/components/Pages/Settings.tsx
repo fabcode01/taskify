@@ -32,6 +32,13 @@ export default function Settings() {
     }
 
 
+    const handleClearAll = () => {
+        localStorage.clear()
+
+        window.location.reload()
+    }
+
+
     return (
         <div className="flex flex-col mt-5 p-5">
             <Title className="dark:text-azul-clarinho" title={currentLanguage?.settings.title} />
@@ -55,7 +62,7 @@ export default function Settings() {
                 </Hero>
 
                 <Hero title={currentLanguage?.settings.Clear.title} description={currentLanguage?.settings.Clear.text}>
-                    <Button text={currentLanguage?.settings.Clear.btn} className="mt-0 bg-red-600 text-white font-semibold hover:bg-red-800"/>
+                    <Button submit={handleClearAll} text={currentLanguage?.settings.Clear.btn} className="mt-0 bg-red-600 text-white font-semibold hover:bg-red-800"/>
                 </Hero>
 
                 <div className="mt-6">

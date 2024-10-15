@@ -3,6 +3,7 @@ import { githubIcon } from "./icons";
 import { LanguageContext } from "@/context/LanguageContext";
 
 export function Credit() {
+    
     const{currentLanguage} = useContext(LanguageContext)
 
     return (

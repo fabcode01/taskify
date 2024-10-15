@@ -1,6 +1,7 @@
 import { useContext, useEffect } from 'react'
 import {userIcon, logoTaskify} from '../icons/index'
 import AuthContext from '@/context/AuthContext'
+import Image from 'next/image'
 
 interface TopProps{
     showMenuAuth?: () => void
@@ -9,6 +10,8 @@ interface TopProps{
 export default function Top(props: TopProps){
 
     const{usuario} = useContext(AuthContext)
+    console.log(usuario?.image);
+    
 
     return (
         <div className='flex justify-between items-center p-5 '>
@@ -30,10 +33,11 @@ export default function Top(props: TopProps){
 
                     <div className="avatar placeholder">
                     
-                        <div onClick={props.showMenuAuth} className="cursor-pointer bg-neutral text-neutral-content w-12 rounded-full active:scale-105 border border-slate-300">
+                        <div id='login' onClick={props.showMenuAuth} className="cursor-pointer bg-neutral text-neutral-content w-12 rounded-full active:scale-105 border border-slate-300">
                     
                             {usuario ? (
-                                <img src={usuario?.image} alt="user-photo" />
+                                <Image fill src={usuario?.image} alt='user' className='rounded-full'/>
+                              
                             ):(
                                 
                                 <span>{userIcon}</span>

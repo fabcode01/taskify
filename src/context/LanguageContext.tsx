@@ -10,7 +10,7 @@ interface LanguageContextProps {
 }
 
 export const LanguageContext = createContext<LanguageContextProps>({
-
+    
 })
 
 export function LanguageProvider(props: any){
@@ -45,7 +45,7 @@ export function LanguageProvider(props: any){
 
     useEffect(()=>{
         const theme = localStorage.getItem('theme');
-        setCurrentTheme(theme == 'light' ? 'light' : 'dark')
+        setCurrentTheme(theme == 'dark' ? 'dark' : 'light')
 
     },[])
 
