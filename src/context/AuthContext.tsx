@@ -1,14 +1,17 @@
-import { createContext, useEffect, useState } from "react";
-import { GoogleAuthProvider, onIdTokenChanged, signInWithPopup, User } from "firebase/auth";
+import { createContext, useContext, useEffect, useState } from "react";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, onIdTokenChanged, signInWithEmailAndPassword, signInWithPopup, User } from "firebase/auth";
 import {auth} from '@/firebase/config'
 import Usuario from "@/model/Usuario";
 import Cookies from 'js-cookie';
+import { LanguageContext } from "./LanguageContext";
 
 
 
 interface AuthContextProps {
     usuario?: Usuario | null;
     carregando?: boolean;
+    error?: string
+    changeError?: (error: any) => void 
     loginGoogle?: () => Promise<void>;
     loginEmail?: (email: string, password: string) => Promise<void>;
     cadastrar?: (email: string, password: string) => Promise<void>;
@@ -38,9 +41,32 @@ async function userNormalizado (usuarioFirebase: User): Promise<Usuario>{
 }
 
 export function AuthProvider(props: any) {
+
+    const{currentLanguage: language} = useContext(LanguageContext)
+
+    
+
+    
+
+
     const [usuario, setUsuario] = useState<Usuario | null>(null);
     const [carregando, setCarregando] = useState(true);
 
+
+    const[error, setError] = useState('')
+
+    function changeError(error: string | any){
+        setError(error)
+    }
+
+    useEffect(()=>{
+        const timeOut = setTimeout(()=>{
+            setError('')
+        },3000)
+
+
+        return () => clearTimeout(timeOut)
+    },[error])
     
     
 
@@ -73,9 +99,51 @@ export function AuthProvider(props: any) {
 
             
         } catch (error) {
-            console.error("Erro no login com Google:", error);
+            Error(`Erro no login com Google`)
+            
         } finally {
             setCarregando(false);
+        }
+    }
+
+
+    async function loginEmail(email: string, senha: string){
+        try {
+
+            setCarregando(true);
+            const resp = await signInWithEmailAndPassword(auth, email, senha)
+            await configurarSessao(resp.user)
+            
+
+        }
+        catch (error) {
+            if(String(error).includes('auth/invalid-credential')){
+                changeError(language?.invalidCreditials)
+            }
+            
+            
+        } finally {
+            setCarregando(false)
+        }
+    }
+
+    async function cadastrar(email: string, senha: string){
+        try {
+
+            setCarregando(true);
+            const resp = await createUserWithEmailAndPassword(auth, email, senha)
+            await configurarSessao(resp.user)
+            
+
+        }
+        catch (error) {
+            if(error){
+                changeError(String(error))
+            }
+            
+            
+        } finally {
+            setCarregando(false)
         }
     }
 
@@ -89,6 +157,8 @@ export function AuthProvider(props: any) {
             setCarregando(false)
         }
     }
+
+
 
  useEffect(()=>{
     if(Cookies.get('admin-template-auth')){
@@ -117,7 +187,11 @@ export function AuthProvider(props: any) {
         <AuthContext.Provider value={{
             usuario,
             carregando,
+            error,
+            changeError,
             loginGoogle,
+            loginEmail,
+            cadastrar,
             logout
            
         }}>

@@ -75,7 +75,14 @@ export const English = {
 
     errorTask: 'Some fields are missing. Try again',
 
-    credits: 'Development by'
+    credits: 'Development by',
+
+
+    fieldsEmpty: 'Something is missing!',
+
+    invalidCreditials: 'Email or password invalids!',
+
+    passwordWeak: 'Password must be longer than 7 characters.'
 
 
 }
@@ -163,7 +170,13 @@ export const Portugues = {
 
     errorTask: 'Faltam dados. Tente novamente.',
 
-    credits: 'Desenvolvido por'
+    credits: 'Desenvolvido por',
+
+    fieldsEmpty: 'Algo está faltando!',
+
+    invalidCreditials: 'Email ou senha inválidos!',
+
+    passwordWeak: 'Senha deve ter no minimo 7 caracteres.'
 
 
 }

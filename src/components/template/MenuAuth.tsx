@@ -17,25 +17,32 @@ interface MenuLoginProps{
 export function MenuAuth(props: MenuLoginProps){
 
     const{currentLanguage} = useContext(LanguageContext)
-    const{usuario, logout, carregando} = useContext(AuthContext)
 
-    const[AuthMode, setAuthMode] = useState<'login' | 'register'>('login')
+    const{usuario, logout, carregando} = useContext(AuthContext)
 
     const userImg = usuario?.image ? usuario?.image : ''
 
-    function switchAuthMode(){
-        if(AuthMode === 'login'){
-            setAuthMode('register')
-        }else{
-            setAuthMode('login')
-        }
+    const[AuthMode, setAuthMode] = useState<AuthMode>('register')
+
+    function changeMode(mode: AuthMode){
+        setAuthMode(mode)
+
+        console.log(mode);
+        
     }
 
     function renderProfile(){
         return (
             <div className="flex flex-col items-center mt-5">
-            <Image width={80} height={80} src={userImg} alt='user' className='rounded-full'/>
-            <h2 className="mt-3 text-lg font-semibold">Olá, {usuario?.nome}</h2>
+                {usuario?.image ? (
+                    <Image width={112} height={112} src={userImg} alt='user' className='rounded-full'/>
+                ):(
+                    <div className="flex justify-center items-center bg-gray-800 w-28 h-28 rounded-full">
+                        <span className='text-white font-semibold uppercase text-2xl'>{usuario?.email[0]}</span>
+                    </div>
+                )}
+            
+            <h2 className="mt-3 text-lg font-semibold">Olá, {usuario?.nome ? usuario.nome : usuario?.email}</h2>
 
                 <Button onClick={logout} icon={logoutIcon} text="logout" className="bg-red-700 text-white hover:bg-red-950"/>
             
@@ -56,7 +63,7 @@ export function MenuAuth(props: MenuLoginProps){
                 usuario ? (
                     renderProfile()
                 ) : (
-                    <Form title={AuthMode === 'login' ? currentLanguage?.AuthModal.titleLogin : currentLanguage?.AuthModal.titleRegister} AuthMode={AuthMode} changeMode={switchAuthMode}/>
+                    <Form title={AuthMode === 'register' ? currentLanguage?.AuthModal.titleLogin : currentLanguage?.AuthModal.titleRegister} AuthMode={changeMode}/>
                 )
             )}
 

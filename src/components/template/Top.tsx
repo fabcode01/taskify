@@ -10,8 +10,6 @@ interface TopProps{
 export default function Top(props: TopProps){
 
     const{usuario} = useContext(AuthContext)
-    console.log(usuario?.image);
-    
 
     return (
         <div className='flex justify-between items-center p-5 '>
@@ -33,10 +31,15 @@ export default function Top(props: TopProps){
 
                     <div className="avatar placeholder">
                     
-                        <div id='login' onClick={props.showMenuAuth} className="cursor-pointer bg-neutral text-neutral-content w-12 rounded-full active:scale-105 border border-slate-300">
+                        <div id='login' onClick={props.showMenuAuth} className="flex items-center justify-center cursor-pointer bg-neutral text-neutral-content w-12 rounded-full active:scale-105 border border-slate-300 hover:bg-gray-700">
                     
                             {usuario ? (
-                                <Image fill src={usuario?.image} alt='user' className='rounded-full'/>
+                                !usuario?.image && usuario?.email ? (
+                                    <span className='font-semibold uppercase'>{usuario.email[0]}</span>
+                                ) : (
+                                    <Image fill src={usuario?.image} alt='user' className='rounded-full'/>
+                                )
+                               
                               
                             ):(
                                 
