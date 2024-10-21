@@ -67,7 +67,7 @@ export function Tasks(props: TasksProps){
                 return allTask && allTask
                     .filter((item:any) => item.completed == mode)
                     .map((task:any) => (
-                        <div key={task.id}>
+                        <div key={task.id} className="w-full max-w-[850px] mx-auto">
 
                         <div className="relative -bottom-3 flex">
                             <span className={`bg-azul-escuro p-3 rounded-lg text-white ${task.completed === false ? 'bg-azul-escuro' : 'bg-green-400'}`}>  {task.date}
@@ -75,8 +75,8 @@ export function Tasks(props: TasksProps){
                         </div>
 
                         <div key={task.id} className={
-                            `relative duration-150 flex items-center justify-between
-                            ${task.completed === false ? 'bg-branco-cinzinha' : 'bg-green-200'} p-6 rounded-md`
+                            `relative flex items-center h-22 justify-between lg:h-32
+                            ${task.completed === false ? 'bg-branco-cinzinha' : 'bg-green-200'} p-6 rounded-md anime`
                         }>
                         
                             <span className="text-azul-clarinho">{typeSelect(task.type)}</span>
@@ -125,7 +125,7 @@ export function Tasks(props: TasksProps){
 
 
     return (
-        <div className="taskContainer flex flex-col gap-5">
+        <div className="taskContainer flex flex-col gap-5  ">
                 {props.filter == 'all' && allTask?.length === 0 ? renderEmptyTasks() : renderTasks()}
                 {props.filter == 'completed' && allTask?.filter(item => item.completed == true).length == 0 ? renderEmptyTasks() : ''}
         </div>
