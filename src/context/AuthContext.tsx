@@ -4,11 +4,12 @@ import {auth} from '@/firebase/config'
 import Usuario from "@/model/Usuario";
 import Cookies from 'js-cookie';
 import { LanguageContext } from "./LanguageContext";
+import { isNull } from "util";
 
 
 
 interface AuthContextProps {
-    usuario?: Usuario | null;
+    usuario?: Usuario;
     carregando?: boolean;
     error?: string
     changeError?: (error: any) => void 
@@ -49,7 +50,7 @@ export function AuthProvider(props: any) {
     
 
 
-    const [usuario, setUsuario] = useState<Usuario | null>(null);
+    const [usuario, setUsuario] = useState<Usuario>();
     const [carregando, setCarregando] = useState(true);
 
 
@@ -78,7 +79,7 @@ export function AuthProvider(props: any) {
             setCarregando(false);
             return usuario.email;
         } else {
-            setUsuario(null);
+            setUsuario(undefined);
             gerenciarCookie(false);
             setCarregando(false);
             return false;

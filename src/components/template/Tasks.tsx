@@ -1,10 +1,13 @@
 'use client'
 
 import { checkIcon, educationIcon, elipsisVerticalIcon, financeIcon, healthIcon, personalIcon, xIcon } from "../icons"
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { TaskContext } from "@/context/TaskContext";
 import Task from "@/core/Task";
 import Image from "next/image";
+import useCloud from "@/hooks/useCloudTask";
+import AuthContext from "@/context/AuthContext";
+
 
 
 interface TasksProps{
@@ -23,8 +26,19 @@ interface TasksProps{
 
 export function Tasks(props: TasksProps){
 
-    const { allTask, deleteTask, checkOrUncheck } = useContext(TaskContext)
+    const{usuario} = useContext(AuthContext)
+    
+    const { allTask, deleteTask, checkOrUncheck, addTask } = useContext(TaskContext)
+    
+    const{addCloud} = useCloud()
 
+    // ================================
+
+
+
+    // =================================
+
+  
 
     function typeSelect(type: string) {
         switch (type) {
@@ -48,6 +62,19 @@ export function Tasks(props: TasksProps){
     }
 
 
+   useEffect(()=>{
+
+    if(usuario){
+
+        const userId = usuario.uid
+
+        allTask && allTask.map((data: any) => addCloud(userId, `${data.id}`, 'tasks', data))
+    }
+       
+
+        
+    },[allTask, usuario])
+
     function renderEmptyTasks(){
         return (
             <div className="opacity-25 flex flex-col justify-center items-center gap-2 h-[200px] mt-10">
@@ -58,11 +85,13 @@ export function Tasks(props: TasksProps){
     }
 
 
+
     function renderTasks() {
+        
+
         
             const mode = props.filter == 'all' ?  false : true 
 
-            
             
                 return allTask && allTask
                     .filter((item:any) => item.completed == mode)
@@ -127,7 +156,7 @@ export function Tasks(props: TasksProps){
     return (
         <div className="taskContainer flex flex-col gap-5  ">
                 {props.filter == 'all' && allTask?.length === 0 ? renderEmptyTasks() : renderTasks()}
-                {props.filter == 'completed' && allTask?.filter(item => item.completed == true).length == 0 ? renderEmptyTasks() : ''}
+                {props.filter == 'completed' && allTask?.filter((item:any) => item.completed == true).length == 0 ? renderEmptyTasks() : ''}
         </div>
     );
 }

@@ -10,12 +10,12 @@ import { useEffect } from "react";
 
 
 export default function Home() {
-  
+
   const { initDriver } = useDriver();
 
   useEffect(() => { // Adicione este efeito
     const driver = localStorage.getItem('tutorial');
-    
+
     if (!driver) {
       initDriver();
       localStorage.setItem('tutorial', 'true')
@@ -23,18 +23,18 @@ export default function Home() {
 
   }, [initDriver]);
   return (
-  <LanguageProvider>
-    <TaskProvider>
-      <AuthProvider>
-          
-           <Layout/>
+    <AuthProvider>
+      <LanguageProvider>
+        <TaskProvider>
 
-         
-      </AuthProvider>
-    </TaskProvider>
-  </LanguageProvider>
-    
-  
+          <Layout />
+
+
+        </TaskProvider>
+      </LanguageProvider>
+    </AuthProvider>
+
+
 
   );
 }

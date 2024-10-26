@@ -5,50 +5,48 @@ import { useState } from 'react'
 
 
 
-export default function useCloud(docColletion: string){
+export default function useCloud(){
 
     const[carregando, setCarregando] = useState(false)
 
     const db = getFirestore()
 
-    async function addCloud(data: any){
-        
-        
-        try {
+    async function addCloud(userId: string, idTask: string, docColletion: string, data: any){
 
+
+        try {
             setCarregando(true)
 
-            const docRef = await addDoc(collection(db, docColletion),{
-               data
-               
-            })
-    
-            await setDoc(docRef, {
-                id: docRef.id,
-                data
-            })
-        }finally {
-            setCarregando(false)
+            const userDoc = doc(db, 'users', userId)
+            
+            const userTask = collection(userDoc, 'tasks')
+
+
+            await setDoc(doc(userTask, idTask), {data})
+            
+
+
+        } finally {
+            setCarregando(false);
         }
-        
         
     }
 
 
-    async function getCloud(docColletion: string){
+    async function getCloud(userId: string, docColletion: string){
+
+        const userDoc = doc(db, 'users', userId)
+
+        const tasksColletion = collection(userDoc, 'tasks')
 
         try {
             setCarregando(true)
 
-            const q = query(collection(db, docColletion))
+            const taskSnapshot = await getDocs(tasksColletion)
 
-            const querySnapshot = await getDocs(q)
+            const tasks = taskSnapshot.docs.map(doc => ({...doc.data().data}))
 
-            const newTasks = querySnapshot.docs.map(doc => doc.data())
-
-            return newTasks
-            
-            
+            return tasks
 
         }   finally {
 
@@ -87,5 +85,6 @@ export default function useCloud(docColletion: string){
         carregando,
     }
 }
+
 
 
