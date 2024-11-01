@@ -7,6 +7,7 @@ interface TaskContextProps {
     allTask?: Task[];
     taskEdit?:Task
     addTask?: (task: Task) => void;
+    setTask?: (cloudTask: Task) => void; 
     editTask?: (task: Task) => void;
     deleteTask?: (id: number) => void;
     checkOrUncheck?: (id: number) => void
@@ -20,7 +21,7 @@ export function TaskProvider(props: any){
 
     const[allTask, setAllTask] = useState<any>([])
 
-    const{addCloud, getCloud} = useCloud()
+    const{addCloud} = useCloud()
     
 
     useEffect(()=>{
@@ -33,6 +34,14 @@ export function TaskProvider(props: any){
     
       
     },[])
+
+
+    function setTask(cloudTask: any){
+
+        setAllTask(cloudTask)
+        
+        
+    }
 
 
     function addTask(task: Task){
@@ -68,13 +77,16 @@ export function TaskProvider(props: any){
         
     }
 
-    function deleteTask(id: number){
+    async function deleteTask(id: number){
+
 
         const updateTask = allTask.filter((task:any) => task.id != id)
 
         setAllTask(updateTask)
         
         salvarLocalmente(updateTask)
+
+        
        
     }
 
@@ -106,6 +118,7 @@ export function TaskProvider(props: any){
         <TaskContext.Provider value={{
             allTask,
             addTask,
+            setTask,
             deleteTask,
             checkOrUncheck,
           

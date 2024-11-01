@@ -6,9 +6,15 @@ import Button from "../Button";
 import { Credit } from "../Credit";
 import { LanguageContext } from "@/context/LanguageContext";
 import { Portugues } from "../../../public/data/strings";
+import AuthContext from "@/context/AuthContext";
+import useCloud from "@/hooks/useCloudTask";
 
 
 export default function Settings() {
+
+    const{usuario} = useContext(AuthContext)
+
+    const{deleteAllTasks} = useCloud()
 
     const{currentLanguage, changeLanguage, currentTheme: theme, changeTheme} = useContext(LanguageContext)
 
@@ -32,7 +38,11 @@ export default function Settings() {
     }
 
 
-    const handleClearAll = () => {
+    const handleClearAll = async() => {
+        if(usuario){
+            await deleteAllTasks(usuario.uid)
+        }
+
         localStorage.clear()
 
         window.location.reload()

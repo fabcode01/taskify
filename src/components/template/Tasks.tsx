@@ -28,9 +28,9 @@ export function Tasks(props: TasksProps){
 
     const{usuario} = useContext(AuthContext)
     
-    const { allTask, deleteTask, checkOrUncheck, addTask } = useContext(TaskContext)
+    const { allTask, deleteTask: deleteLocal, checkOrUncheck, setTask } = useContext(TaskContext)
     
-    const{addCloud} = useCloud()
+    const{addCloud, getCloud, deleteCloud} = useCloud()
 
     // ================================
 
@@ -38,7 +38,13 @@ export function Tasks(props: TasksProps){
 
     // =================================
 
-  
+    function deleteTask(id: number){
+        if(usuario){
+            deleteCloud(usuario.uid, id)
+        }
+
+        deleteLocal && deleteLocal(id)
+    }
 
     function typeSelect(type: string) {
         switch (type) {
@@ -67,13 +73,23 @@ export function Tasks(props: TasksProps){
     if(usuario){
 
         const userId = usuario.uid
-
         allTask && allTask.map((data: any) => addCloud(userId, `${data.id}`, 'tasks', data))
+
+       
+        
+        getCloud(userId, 'tasks').then((data: any) => {
+            setTask && setTask(data)
+        })
+
+        
+        
     }
+
+
        
 
         
-    },[allTask, usuario])
+    },[usuario])
 
     function renderEmptyTasks(){
         return (
@@ -138,7 +154,7 @@ export function Tasks(props: TasksProps){
                                             </button>
                                         ):''}
                                        
-                                        <button className="bg-branco-cinzinha text-base hover:bg-red-700 w-full hover:text-white rounded-md p-2" onClick={() => deleteTask?.(task.id)}>
+                                        <button className="bg-branco-cinzinha text-base hover:bg-red-700 w-full hover:text-white rounded-md p-2" onClick={() => deleteTask(task.id)}>
                                             <a><span>Delete</span></a>
                                         </button>
                                     </ul>

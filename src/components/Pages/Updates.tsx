@@ -17,10 +17,12 @@ export default function Updates(){
     // Fim Contexts
 
     const[updateTitle, setUpdateTitle] = useState('')
+
     const[updateText, setUpdateText] = useState('')
+
     const[cloudUpdates, setCloudUpdates] = useState<UpdatesProps[] | any>()
 
-    const{addCloud, carregando:loadingUpdate, getCloud, deleteCloud} = useCloud('updates')
+    const{addUpdate,getUpdate,deleteUpdate: deleteCloudUpdate, carregando:loadingUpdate, deleteCloud} = useCloud()
 
     async function submit(){
         const update = {
@@ -31,7 +33,7 @@ export default function Updates(){
         setUpdateText('')
         setUpdateTitle('')
 
-        await addCloud(update)
+        await addUpdate(update)
 
 
 
@@ -40,7 +42,7 @@ export default function Updates(){
     }
 
     async function get(){
-        const newUpdates = await getCloud('updates')
+        const newUpdates = await getUpdate()
         
         const data = newUpdates.map(item => {
           
@@ -60,9 +62,9 @@ export default function Updates(){
         
     }
 
-    async function deleteUpdate(update: string | number) {
+    async function deleteUpdate(id: string | number) {
 
-        await deleteCloud('updates', update)
+        await deleteCloudUpdate(id)
 
         get()
     }

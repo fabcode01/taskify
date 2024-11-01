@@ -20,7 +20,7 @@ export default function Home(props: HomeProps){
     
     const{currentLanguage} = useContext(LanguageContext)
 
-    const{carregando} = useCloudTask('tasks')
+    const{carregando} = useCloudTask()
 
     const[localSort, setLocalSort] = useState<string | null>('asc')
 
@@ -31,12 +31,12 @@ export default function Home(props: HomeProps){
         props.taskToEdit(task)
     }
 
-    useEffect(()=>{
-      const item = localStorage.getItem('sort')
-       setLocalSort(item)
+    // useEffect(()=>{
+    //   const item = localStorage.getItem('sort')
+    //    setLocalSort(item)
 
         
-    },[])
+    // },[])
 
 
     function sortBy(tipo: any){
