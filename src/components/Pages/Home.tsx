@@ -56,7 +56,7 @@ export default function Home(props: HomeProps){
             setLocalSort(order)
 
         }
-    })
+    },[orderBy])
 
 
     return (
