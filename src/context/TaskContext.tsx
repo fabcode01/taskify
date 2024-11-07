@@ -54,9 +54,14 @@ export function TaskProvider(props: any){
             // Atualizar Task
             const updatedTasks = [...allTask];
             updatedTasks[existingTaskIndex] = taskObj;
+
             setAllTask(updatedTasks);
             salvarLocalmente(updatedTasks);
-            return;
+            // Removido: Forçar re-renderização
+            // setAllTask(prev => [...prev]);
+
+            window.location.reload()
+            
         } else{
             // Adicionar nova task
             taskObj.id = Math.random()
@@ -69,13 +74,8 @@ export function TaskProvider(props: any){
          
             if(usuario?.email){
                 addCloud(usuario.uid, `${taskObj.id}`, 'tasks', taskObj)
-
             }
-            
         }
-
-        
-        
     }
 
     async function deleteTask(id: number){
