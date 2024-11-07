@@ -6,6 +6,8 @@ import useCloudTask from "@/hooks/useCloudTask";
 import Task from "@/core/Task";
 import { Tasks } from "../template/Tasks";
 import { LanguageContext } from "@/context/LanguageContext";
+import { TaskContext } from "@/context/TaskContext";
+import AuthContext from "@/context/AuthContext";
 
 
 
@@ -21,8 +23,13 @@ export default function Home(props: HomeProps){
     const{currentLanguage} = useContext(LanguageContext)
 
     const{carregando} = useCloudTask()
+    
+    const{orderBy} = useContext(TaskContext)
 
-    const[localSort, setLocalSort] = useState<string | null>('asc')
+    const{usuario} = useContext(AuthContext)
+
+    const[localSort, setLocalSort] = useState<string | null>('')
+
 
     // elevar dado para o Layout
     function taskToEdit(task: Task){
@@ -31,18 +38,25 @@ export default function Home(props: HomeProps){
         props.taskToEdit(task)
     }
 
-    // useEffect(()=>{
-    //   const item = localStorage.getItem('sort')
-    //    setLocalSort(item)
 
-        
-    // },[])
+    function sortBy(tipo: string){
+        orderBy && orderBy(tipo)
 
-
-    function sortBy(tipo: any){
-        console.log('');
+        localStorage.setItem('order', tipo)
+        setLocalSort(tipo)
         
     }
+
+
+    useEffect(()=>{
+        const order = localStorage.getItem('order')
+
+        if(order){
+            orderBy && orderBy(order)
+            setLocalSort(order)
+
+        }
+    })
 
 
     return (

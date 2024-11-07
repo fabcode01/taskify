@@ -11,6 +11,7 @@ interface TaskContextProps {
     editTask?: (task: Task) => void;
     deleteTask?: (id: number) => void;
     checkOrUncheck?: (id: number) => void
+    orderBy?: (tipo: string) => void
 }
 
 export const TaskContext = createContext<TaskContextProps>({})
@@ -106,12 +107,36 @@ export function TaskProvider(props: any){
     }
 
 
+  // Função para ordenar
+    function orderBy(tipo: string) {
+        
+    const update = [...allTask]
+
+    update.sort((a: any, b: any) => {
+        const dataA = new Date(a.date); 
+        const dataB = new Date(b.date); 
+
+        if (tipo === 'asc') {
+            return dataA.getTime() - dataB.getTime(); 
+        } else if (tipo === 'dec') {
+            return dataB.getTime() - dataA.getTime();  
+        }
+        
+        return 0
+    });
+
+    setAllTask(update)
+    
+}
+    
 
 
     function salvarLocalmente(updateTask:any[]){
 
         localStorage.setItem('tasks', JSON.stringify(updateTask))
     }
+
+
 
 
     return (
@@ -121,6 +146,7 @@ export function TaskProvider(props: any){
             setTask,
             deleteTask,
             checkOrUncheck,
+            orderBy
           
         }}>
             {props.children}

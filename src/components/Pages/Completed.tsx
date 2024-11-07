@@ -4,6 +4,7 @@ import { useContext } from "react"
 import { LanguageContext } from "@/context/LanguageContext"
 
 export default function Completed(){
+    
     const{currentLanguage} = useContext(LanguageContext)
 
     return (
