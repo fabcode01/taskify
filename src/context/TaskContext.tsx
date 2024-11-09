@@ -22,6 +22,7 @@ export function TaskProvider(props: any){
 
     const[allTask, setAllTask] = useState<any>([])
 
+
     const{addCloud} = useCloud()
     
 
@@ -96,10 +97,16 @@ export function TaskProvider(props: any){
 
         const updatedTasks = allTask.map((task: any) => {
             if (task.id === id) {
+                task = { ...task, completed: !task.completed };
 
-                return { ...task, completed: !task.completed };
+
+                if(usuario?.email){
+                    addCloud(usuario.uid, `${task.id}`, 'tasks', task)
+                }
 
             }
+
+            
             return task;
         });
 

@@ -109,6 +109,8 @@ export function Tasks(props: TasksProps){
                 return renderEmptyTasks();
             }
 
+            
+
             return allTask && allTask
                 .filter((item:any) => item.completed == mode)
                 .map((task:any) => (

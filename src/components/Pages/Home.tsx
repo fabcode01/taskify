@@ -44,21 +44,19 @@ export default function Home(props: HomeProps){
     }
 
 
-    useEffect(()=>{
-        const order = localStorage.getItem('order')
+    // useEffect(()=>{
+    //     const order = localStorage.getItem('order')
 
-        if(order){
-            orderBy && orderBy(order)
-            setLocalSort(order)
+    //     if(order){
+    //         orderBy && orderBy(order)
+    //         setLocalSort(order)
 
-        }
-    },[])
+    //     }
+    // },[])
 
 
     return (
         <main className="flex flex-col items-center mt-14 p-5 ">
-
-            
 
             <div className="flex w-full items-center justify-between ">
 
