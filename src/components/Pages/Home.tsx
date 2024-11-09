@@ -26,8 +26,6 @@ export default function Home(props: HomeProps){
     
     const{orderBy} = useContext(TaskContext)
 
-    const{usuario} = useContext(AuthContext)
-
     const[localSort, setLocalSort] = useState<string | null>('')
 
 
@@ -56,7 +54,7 @@ export default function Home(props: HomeProps){
             setLocalSort(order)
 
         }
-    },[orderBy])
+    },[])
 
 
     return (

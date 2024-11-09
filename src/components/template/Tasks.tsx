@@ -48,13 +48,13 @@ export function Tasks(props: TasksProps){
 
     function typeSelect(type: string) {
         switch (type) {
-            case 'Finance':
+            case 'Finance' || 'Finança':
                 return financeIcon;
-            case 'Personal':
+            case 'Personal' || 'Pessoal':
                 return personalIcon;
-            case 'Education':
+            case 'Education' || 'Educação':
                 return educationIcon;
-            case 'Health':
+            case 'Health' || 'Saúde':
                 return healthIcon;
             default:
                 return null;
@@ -75,8 +75,6 @@ export function Tasks(props: TasksProps){
         const userId = usuario.uid
         allTask && allTask.map((data: any) => addCloud(userId, `${data.id}`, 'tasks', data))
 
-       
-        
         getCloud(userId, 'tasks').then((data: any) => {
             setTask && setTask(data)
         })
@@ -84,10 +82,6 @@ export function Tasks(props: TasksProps){
         
         
     }
-
-
-       
-
         
     },[usuario])
 
@@ -103,6 +97,9 @@ export function Tasks(props: TasksProps){
 
 
     function renderTasks() {
+
+        console.log(allTask);
+        
         
 
         

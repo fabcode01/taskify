@@ -96,19 +96,19 @@ export function FormTask(props: FormTask){
                         {currentLanguage?.TaskModal.Categorys.default}
                     </option>
 
-                    <option>
+                    <option value={'Finance'}>
                         {currentLanguage?.TaskModal.Categorys.finance}
                     </option>
 
-                    <option>
+                    <option value={'Personal'}>
                         {currentLanguage?.TaskModal.Categorys.personal}
                     </option>
 
-                    <option>
+                    <option value={'Education'}>
                         {currentLanguage?.TaskModal.Categorys.education}
                     </option>
                     
-                    <option>
+                    <option value={'Health'}>
                         {currentLanguage?.TaskModal.Categorys.health}
                     </option>
 
