@@ -57,10 +57,10 @@ export function TaskProvider(props: any){
 
             setAllTask(updatedTasks);
             salvarLocalmente(updatedTasks);
-            // Removido: Forçar re-renderização
-            // setAllTask(prev => [...prev]);
 
-            window.location.reload()
+            if (usuario?.email) {
+                addCloud(usuario.uid, `${taskObj.id}`, 'tasks', taskObj);
+            }
             
         } else{
             // Adicionar nova task

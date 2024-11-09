@@ -73,17 +73,21 @@ export function Tasks(props: TasksProps){
     if(usuario){
 
         const userId = usuario.uid
-        allTask && allTask.map((data: any) => addCloud(userId, `${data.id}`, 'tasks', data))
-
-        getCloud(userId, 'tasks').then((data: any) => {
-            setTask && setTask(data)
-        })
-
-        
-        
+        allTask && allTask.forEach((data: any) => addCloud(userId, `${data.id}`, 'tasks', data))
     }
         
     },[usuario])
+
+    
+
+    useEffect(() => {
+        if (usuario) {
+            const userId = usuario.uid;
+            getCloud(userId, 'tasks').then((data: any) => {
+                setTask && setTask(data);
+            });
+        }
+    }, [usuario]);
 
     function renderEmptyTasks(){
         return (
