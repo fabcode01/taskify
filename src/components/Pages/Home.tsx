@@ -31,8 +31,6 @@ export default function Home(props: HomeProps){
 
     // elevar dado para o Layout
     function taskToEdit(task: Task){
-        console.log('Home');
-        
         props.taskToEdit(task)
     }
 

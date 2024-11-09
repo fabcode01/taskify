@@ -101,11 +101,7 @@ export function Tasks(props: TasksProps){
 
 
     function renderTasks() {
-
-        console.log(allTask);
         
-        
-
         
             const mode = props.filter == 'all' ?  false : true 
 
