@@ -105,11 +105,14 @@ export function Tasks(props: TasksProps){
         
             const mode = props.filter == 'all' ?  false : true 
 
-            
-                return allTask && allTask
-                    .filter((item:any) => item.completed == mode)
-                    .map((task:any) => (
-                        <div key={task.id} className="w-full max-w-[850px] mx-auto">
+            if (mode === false && allTask?.every((item: any) => item.completed === true)) {
+                return renderEmptyTasks();
+            }
+
+            return allTask && allTask
+                .filter((item:any) => item.completed == mode)
+                .map((task:any) => (
+                    <div key={task.id} className="w-full max-w-[850px] mx-auto">
 
                         <div className="relative -bottom-3 flex">
                             <span className={`bg-azul-escuro p-3 rounded-lg text-white ${task.completed === false ? 'bg-azul-escuro' : 'bg-green-400'}`}>  {task.date}
@@ -169,6 +172,7 @@ export function Tasks(props: TasksProps){
     return (
         <div className="taskContainer flex flex-col gap-5  ">
                 {props.filter == 'all' && allTask?.length === 0 ? renderEmptyTasks() : renderTasks()}
+
                 {props.filter == 'completed' && allTask?.filter((item:any) => item.completed == true).length == 0 ? renderEmptyTasks() : ''}
         </div>
     );
