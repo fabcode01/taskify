@@ -96,7 +96,13 @@ export function TaskProvider(props: any){
 
         const updatedTasks = allTask.map((task: any) => {
             if (task.id === id) {
+
+                if(usuario?.email){
+                    addCloud(usuario.uid, `${task.id}`, 'tasks', task)
+                }
+
                 return { ...task, completed: !task.completed };
+
             }
             return task;
         });
@@ -104,6 +110,8 @@ export function TaskProvider(props: any){
         setAllTask(updatedTasks);
 
         salvarLocalmente(updatedTasks);
+
+        
     }
 
 
